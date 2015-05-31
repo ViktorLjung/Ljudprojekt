@@ -23,6 +23,9 @@
     <Filter Include="Sound">
       <UniqueIdentifier>{fff8f6ba-be2d-4bfb-90d6-b157e058d45a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{32ebbd71-ecc3-4b2a-80c0-f4f5e0e96ee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Libraries\glew-1.10.0\src\glew.c">
@@ -48,9 +51,11 @@
     <ClCompile Include="Source\PhysicsSystem.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\SoundSysten.cpp">
       <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Object.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +84,11 @@
     <ClInclude Include="Source\PhysicsSystem.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\SoundSystem.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Object.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

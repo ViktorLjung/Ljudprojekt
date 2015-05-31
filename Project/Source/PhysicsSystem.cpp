@@ -30,7 +30,7 @@ void PhysicsSystem::Initialize()
 		btVector3 localInertia(0, 0, 0);
 		if (isDynamic)
 			groundShape->calculateLocalInertia(mass, localInertia);
-
+		
 		btDefaultMotionState* motionState = new btDefaultMotionState(groundTransform);
 		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, motionState, groundShape, localInertia);
 		btRigidBody* body = new btRigidBody(rbInfo);
