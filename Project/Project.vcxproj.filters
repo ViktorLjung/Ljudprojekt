@@ -20,6 +20,9 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{a3f898a2-0f8e-4617-b1e5-e7ce2860ed05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{fff8f6ba-be2d-4bfb-90d6-b157e058d45a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Libraries\glew-1.10.0\src\glew.c">
@@ -46,6 +49,9 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object.cpp" />
+    <ClCompile Include="Source\SoundSysten.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Util\GLError.h">
@@ -74,6 +80,9 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Object.h" />
+    <ClInclude Include="Source\SoundSystem.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment.glsl">

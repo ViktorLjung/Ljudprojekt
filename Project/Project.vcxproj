@@ -88,6 +88,7 @@
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
+    <ClCompile Include="Source\SoundSysten.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +101,7 @@
     <ClInclude Include="Source\Rectangle.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\ShaderProgram.h" />
+    <ClInclude Include="Source\SoundSystem.h" />
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\Util\GLError.h" />
     <ClInclude Include="Source\Util\Logging.h" />
