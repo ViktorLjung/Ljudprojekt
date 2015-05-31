@@ -7,9 +7,12 @@
 
 class SoundSystem
 {
+protected:
+	FMOD::System *m_pSystem;
+	FMOD::Channel *m_pChannel;
+
 private:
 	void Initialize();
-	FMOD::System *m_pSystem;
 	
 public:
 	SoundSystem();

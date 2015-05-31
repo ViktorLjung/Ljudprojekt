@@ -77,10 +77,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BGM.cpp" />
     <ClCompile Include="Libraries\glew-1.10.0\src\glew.c" />
-    <ClCompile Include="SFX.cpp" />
-    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Source\BGM.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -90,14 +88,14 @@
     <ClCompile Include="Source\PrecompiledHeader.cpp" />
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
+    <ClCompile Include="Source\SFX.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
+    <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\SoundSystem.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BGM.h" />
-    <ClInclude Include="SFX.h" />
-    <ClInclude Include="Sound.h" />
+    <ClInclude Include="Source\BGM.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\Model.h" />
@@ -106,7 +104,9 @@
     <ClInclude Include="Source\PrecompiledHeader.h" />
     <ClInclude Include="Source\Rectangle.h" />
     <ClInclude Include="Source\Renderer.h" />
+    <ClInclude Include="Source\SFX.h" />
     <ClInclude Include="Source\ShaderProgram.h" />
+    <ClInclude Include="Source\Sound.h" />
     <ClInclude Include="Source\SoundSystem.h" />
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\Util\GLError.h" />

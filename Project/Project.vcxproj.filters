@@ -49,13 +49,13 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object.cpp" />
-    <ClCompile Include="BGM.cpp">
+    <ClCompile Include="Source\BGM.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
-    <ClCompile Include="SFX.cpp">
+    <ClCompile Include="Source\SFX.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
+    <ClCompile Include="Source\Sound.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
     <ClCompile Include="Source\SoundSystem.cpp">
@@ -89,16 +89,16 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Object.h" />
+    <ClInclude Include="Source\BGM.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SFX.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Sound.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
     <ClInclude Include="Source\SoundSystem.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="BGM.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="SFX.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
       <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>

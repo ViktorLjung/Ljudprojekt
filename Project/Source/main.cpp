@@ -5,14 +5,20 @@
 #include "Model.h"
 #include "Renderer.h"
 #include "PhysicsSystem.h"
+#include "SFX.h"
 #include "SoundSystem.h"
+
 
 Renderer renderer = Renderer();
 std::shared_ptr<Model> model;
 //std::shared_ptr<Model> Plane;
 
 PhysicsSystem physicsSystem;
-SoundSystem soundSystem;
+
+//SoundSystem ss;
+SFX testljud;
+
+
 void Update(double dt);
 
 int main()
@@ -35,7 +41,15 @@ int main()
 		double dt = time - lastTime;
 		lastTime = time;
 
-		soundSystem.PlaySound();
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//  Adams sound tutorial :D
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		// Skapa ett sfx eller bgm, skillnaden är att sfx kan spelas i 3D och att bgm loopar per default.
+		// Först måste du skapa ett ljud. Parametrarna är filnamn och volym mellan 0-1.
+		// Sen är det fritt fram att spela det :D bgm behöver ingen pos för att spelas ut
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		testljud.CreateSound("Assets/Sounds/test.wav");
+		testljud.PlaySound(glm::vec3(0), 0.1f);
 
 		Update(dt);
 		physicsSystem.Update(dt);
