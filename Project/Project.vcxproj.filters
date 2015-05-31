@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{dc49bff6-80a3-4abc-93da-21c8c1bb7cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GL">
+      <UniqueIdentifier>{b48faf24-13f4-4219-8718-e1aa0be4a0fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{6c691e19-6609-4700-9024-e9f61912824a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{073c434d-bf5d-444a-891b-75c65e0dbd0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{a3f898a2-0f8e-4617-b1e5-e7ce2860ed05}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Libraries\glew-1.10.0\src\glew.c">
+      <Filter>GL</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\PrecompiledHeader.cpp" />
+    <ClCompile Include="Source\Rectangle.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Model.cpp" />
+    <ClCompile Include="Source\Light.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShaderProgram.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Texture.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhysicsSystem.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Object.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Util\GLError.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\Logging.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PrecompiledHeader.h" />
+    <ClInclude Include="Source\Rectangle.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Model.h" />
+    <ClInclude Include="Source\Light.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShaderProgram.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Texture.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysicsSystem.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Object.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\GeometryPass.frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\GeometryPass.vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\LightingPass.frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\LightingPass.vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\DrawQuad.vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\DrawQuad.frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\SSAO.frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\SSAO.vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\FinalPass.frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\FinalPass.vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\BlurHorizontal.vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\BlurHorizontal.frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\BlurVertical.frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\BlurVertical.vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
