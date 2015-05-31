@@ -5,13 +5,14 @@
 #include "Model.h"
 #include "Renderer.h"
 #include "PhysicsSystem.h"
+#include "SoundSystem.h"
 
 Renderer renderer = Renderer();
 std::shared_ptr<Model> model;
 //std::shared_ptr<Model> Plane;
 
 PhysicsSystem physicsSystem;
-
+SoundSystem soundSystem;
 void Update(double dt);
 
 int main()
@@ -28,12 +29,13 @@ int main()
 	double lastTime = glfwGetTime();
 	glfwSetCursorPos(renderer.GetWindow(), renderer.WIDTH / 2, renderer.HEIGHT / 2);
 
-
 	while (!glfwWindowShouldClose(renderer.GetWindow()))// MAIN LOOP
 	{
 		double time = glfwGetTime();
 		double dt = time - lastTime;
 		lastTime = time;
+
+		soundSystem.PlaySound();
 
 		Update(dt);
 		physicsSystem.Update(dt);
