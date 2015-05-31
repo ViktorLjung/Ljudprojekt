@@ -11,7 +11,7 @@ public:
 	void CleanUp();
 
 
-	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, glm::vec3 position, glm::mat4 transform);
+	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, glm::vec4 transformGL);
 
 private:
 
@@ -23,5 +23,4 @@ private:
 	btDiscreteDynamicsWorld* m_World;
 
 
-	btAlignedObjectArray<btCollisionShape*> m_CollisionShapes;
 };
