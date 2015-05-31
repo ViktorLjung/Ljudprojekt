@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.h"
 
 #include "Rectangle.h"
-#include"Camera.h"
+#include "Camera.h"
 #include "Model.h"
 #include "Renderer.h"
 #include "PhysicsSystem.h"
