@@ -1,12 +1,20 @@
 #include "SoundSystem.h"
 
-void SoundSystem::PlaySound()
+
+SoundSystem::SoundSystem()
 {
-	FMOD::System *m_pSystem;
+	Initialize();
+}
+
+void SoundSystem::Initialize()
+{
 	FMOD::System_Create(&m_pSystem);
 
 	m_pSystem->init(36, FMOD_INIT_NORMAL, NULL);
+}
 
+void SoundSystem::PlaySound()
+{
 	std::string wavFile = "Assets/Sounds/test.wav";
 
 	FMOD::Sound *sound;

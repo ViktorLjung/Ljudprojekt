@@ -49,7 +49,16 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object.cpp" />
-    <ClCompile Include="Source\SoundSysten.cpp">
+    <ClCompile Include="BGM.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SFX.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SoundSystem.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,6 +90,15 @@
     </ClInclude>
     <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\SoundSystem.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="BGM.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SFX.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
       <Filter>Audio</Filter>
     </ClInclude>
   </ItemGroup>

@@ -77,7 +77,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BGM.cpp" />
     <ClCompile Include="Libraries\glew-1.10.0\src\glew.c" />
+    <ClCompile Include="SFX.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -88,10 +91,13 @@
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
-    <ClCompile Include="Source\SoundSysten.cpp" />
+    <ClCompile Include="Source\SoundSystem.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BGM.h" />
+    <ClInclude Include="SFX.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\Model.h" />

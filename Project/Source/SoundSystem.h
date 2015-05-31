@@ -8,7 +8,11 @@
 class SoundSystem
 {
 private:
+	void Initialize();
+	FMOD::System *m_pSystem;
+	
 public:
+	SoundSystem();
 	void PlaySound();
 
 };
