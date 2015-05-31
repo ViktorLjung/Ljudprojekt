@@ -7,10 +7,13 @@
 #include "PhysicsSystem.h"
 #include "SFX.h"
 #include "SoundSystem.h"
+#include "ObjectManager.h"
 
 
 Renderer renderer = Renderer();
-std::shared_ptr<Model> model;
+ObjectManager objectManager = ObjectManager();
+
+//std::shared_ptr<Model> model;
 //std::shared_ptr<Model> Plane;
 
 PhysicsSystem physicsSystem;
@@ -26,9 +29,9 @@ int main()
 	renderer.LoadContent();
 	physicsSystem.Initialize();
 	
-	model = std::make_shared<Model>("Assets/Models/SSAOTest3.obj", glm::vec3(0), glm::quat(), glm::vec3(1));
+	//model = std::make_shared<Model>("Assets/Models/SSAOTest3.obj");
 	//Plane = std::make_shared<Model>("Assets/Models/Raptor.obj", glm::vec3(3, 0, -3), glm::quat(), glm::vec3(1, 1, 1));
-	renderer.AddModelToDraw(model, true);
+	renderer.AddModelToDraw(objectManager.Objects.front()->m_Model, true);
 	//renderer.AddModelToDraw(Plane, true);
 	renderer.AddLightToDraw();
 
@@ -51,6 +54,7 @@ int main()
 		testljud.CreateSound("Assets/Sounds/test.wav");
 		testljud.PlaySound(glm::vec3(0), 0.1f);
 
+		objectManager.Update(dt);
 		Update(dt);
 		physicsSystem.Update(dt);
 		renderer.Draw(dt);

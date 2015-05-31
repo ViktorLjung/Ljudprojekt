@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include <btBulletDynamicsCommon.h>
 
 class PhysicsSystem
@@ -8,6 +9,10 @@ public:
 	void Initialize();
 	void Update(double dt);
 	void CleanUp();
+
+
+	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, glm::vec4 transformGL);
+	void RemoveRigidBody(btCollisionShape* shape, btRigidBody* body);
 private:
 
 
@@ -18,5 +23,4 @@ private:
 	btDiscreteDynamicsWorld* m_World;
 
 
-	btAlignedObjectArray<btCollisionShape*> m_CollisionShapes;
 };

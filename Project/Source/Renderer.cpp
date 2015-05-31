@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-Model m_SphereModel = Model("Assets/Models/Sphere.obj", glm::vec3(0.0), glm::quat(), glm::vec3(1));
+Model m_SphereModel = Model("Assets/Models/Sphere.obj");
 
 Renderer::Renderer()
 {
