@@ -20,8 +20,8 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{a3f898a2-0f8e-4617-b1e5-e7ce2860ed05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sound">
-      <UniqueIdentifier>{fff8f6ba-be2d-4bfb-90d6-b157e058d45a}</UniqueIdentifier>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{b3b1912f-7235-4255-89ca-630f1c90663c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{32ebbd71-ecc3-4b2a-80c0-f4f5e0e96ee0}</UniqueIdentifier>
@@ -52,7 +52,7 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\SoundSysten.cpp">
-      <Filter>Sound</Filter>
+      <Filter>Audio</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object.cpp">
       <Filter>Game</Filter>
@@ -85,7 +85,7 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Source\SoundSystem.h">
-      <Filter>Sound</Filter>
+      <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="Source\Object.h">
       <Filter>Game</Filter>
