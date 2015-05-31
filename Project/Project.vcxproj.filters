@@ -57,6 +57,9 @@
     <ClCompile Include="Source\Object.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ObjectManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Util\GLError.h">
@@ -88,6 +91,9 @@
       <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="Source\Object.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ObjectManager.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

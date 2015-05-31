@@ -63,7 +63,16 @@ void PhysicsSystem::Update(double dt)
 
 }
 
-
+void PhysicsSystem::RemoveRigidBody(btCollisionShape* shape, btRigidBody* body)
+{
+	if (body && body->getMotionState())
+	{
+		delete body->getMotionState();
+	}
+	
+	m_World->removeRigidBody(body);
+	delete body;
+}
 
 void PhysicsSystem::CleanUp()
 {

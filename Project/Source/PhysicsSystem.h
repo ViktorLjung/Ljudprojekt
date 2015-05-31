@@ -12,7 +12,7 @@ public:
 
 
 	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, glm::vec4 transformGL);
-
+	void RemoveRigidBody(btCollisionShape* shape, btRigidBody* body);
 private:
 
 

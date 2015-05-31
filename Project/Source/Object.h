@@ -5,7 +5,9 @@
 class Object
 {
 public:
-	Object(btCollisionShape* shape);
+	Object(btCollisionShape* shape, std::string modelPath);
+	void Update(double dt);
+	std::shared_ptr<Model>  m_Model;
 
 private:
 	btScalar m_Mass; // Mass = 0 = static
@@ -13,11 +15,10 @@ private:
 	btCollisionShape* m_Shape;
 	glm::vec3 m_PhysicsOrigin;
 
-
-	Model* m_Model;
-
+	float scaler;
+	
 	glm::vec3 m_Position;
-	glm::mat4 m_Orientation;
+	glm::quat m_Orientation;
 	glm::vec3 m_Scale;
 
 };

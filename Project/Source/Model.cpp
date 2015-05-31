@@ -1,20 +1,23 @@
 #include "Model.h"
 
-Model::Model(std::string path, glm::vec3 position, glm::quat orientation, glm::vec3 scale)
+Model::Model(std::string path)
 {
-	m_Position = position;
-	m_Orientation = orientation;
-	m_Scale = scale;
-
 	LoadOBJ(path);
 	CreateBuffers();
+
+	m_ModelMatrix = glm::mat4();
 }
 
 glm::mat4 Model::ModelMatrix()
 {
-	glm::mat4 modelMatrix = glm::translate(glm::mat4(), m_Position) * glm::toMat4(m_Orientation) * glm::scale(m_Scale);
-	return modelMatrix;
+	return m_ModelMatrix;
 }
+
+void Model::ModelMatrix(glm::vec3 position, glm::quat orientation, glm::vec3 scale)
+{
+	m_ModelMatrix = glm::translate(glm::mat4(), position) * glm::toMat4(orientation) * glm::scale(scale);
+}
+	
 
 bool Model::LoadTexture()
 {
