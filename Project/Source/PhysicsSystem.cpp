@@ -43,7 +43,7 @@ btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass,
 
 void PhysicsSystem::Update(double dt)
 {
-	m_World->stepSimulation(dt, 10);
+	m_World->stepSimulation(1.f / 60.f, 10);
 
 	for (int j = m_World->getNumCollisionObjects() - 1; j >= 0; j--)
 	{

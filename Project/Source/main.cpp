@@ -36,8 +36,30 @@ int main()
 
 
 	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
-	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 0.5f, glm::vec3(0, -5, 0), glm::quat()));
-	
+	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, 0), glm::quat()));
+
+	{
+		glm::quat rot = glm::quat();
+		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(0, 0, -1));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(-75, -5, 0), rot));
+	}
+	{
+		glm::quat rot = glm::quat();
+		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(0, 0, 1));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(75, -5, 0), rot));
+	}
+	{
+		glm::quat rot = glm::quat();
+		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(-1, 0, 0));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, 75), rot));
+	}
+	{
+		glm::quat rot = glm::quat();
+		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(1, 0, 0));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, -75), rot));
+	}
+
+
 	
 
 	std::shared_ptr<Model>  model; 
@@ -77,7 +99,7 @@ int main()
 			objectManager.AddObject(ob);
 			ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
 			glm::vec3 force = renderer.GetCameraForward();
-			force *= 20;
+			force *= 70;
 			ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 		}
 
