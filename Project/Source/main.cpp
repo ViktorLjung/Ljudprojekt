@@ -18,10 +18,10 @@ ObjectManager objectManager = ObjectManager();
 static PhysicsSystem physicsSystem;
 SoundSystem ss;
 //SFX testljud;
-BGM bgmHisako("Assets/Sounds/hisako.wav");
+SFX bgmHisako("Assets/Sounds/test.mp3");
+
 int once = 0;
 std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
-
 void Update(double dt);
 
 int main()
@@ -31,9 +31,9 @@ int main()
 	
 	btCollisionShape* shape = new btBoxShape(btBoxShape(btVector3(0.5f, 0.5f, 0.5f)));
 
- 	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0, 1, 0), glm::quat()));
- 	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0.75, 5, 0), glm::quat()));
-
+ 	//objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0, 1, 0), glm::quat()));
+ 	//objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0.75, 5, 0), glm::quat()));
+	//bgmHisako.PlaySound(glm::vec3(100000, 0, 0), 0.1f);
 
 	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
 	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, 0), glm::quat()));
@@ -134,9 +134,9 @@ int main()
 		Update(dt);
 		ss.Update(
 			renderer.m_Camera->Position(),
-			glm::vec3(0),
 			renderer.m_Camera->Forward(),
 			renderer.m_Camera->Up());
+
 
 		physicsSystem.Update(dt);
 		collisions = physicsSystem.CheckCollisions();

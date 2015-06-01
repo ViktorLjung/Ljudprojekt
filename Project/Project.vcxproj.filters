@@ -57,9 +57,6 @@
     <ClCompile Include="Source\SFX.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Sound.cpp">
-      <Filter>Audio</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SoundSystem.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
