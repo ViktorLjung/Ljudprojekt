@@ -15,5 +15,8 @@ Light::Light()
 	m_Raidus = 20.f;
 	m_SpecularExponent = 50.f;
 	m_DiffuseColor = glm::vec3(0.8f, 0.8f, 0.8f);
-	m_SpecularColor = glm::vec3(1.f);
+	
+	//HACK: for some reason this fixes it, investigate in shaders sometime plz
+	m_SpecularColor = glm::vec3(0.f); 
+	
 }

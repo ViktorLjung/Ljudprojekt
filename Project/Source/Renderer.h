@@ -11,6 +11,7 @@
 #include <tuple>
 #include "Light.h"
 #include <random>
+#include "Object.h"
 
 class Renderer
 {
@@ -21,7 +22,7 @@ public:
 
 	ShaderProgram m_ShaderProgram;
 	bool Initialize();
-	void AddModelToDraw(std::shared_ptr<Model> model, bool visible);
+	void AddObjectToDraw(Object* object, bool visible);
 	void AddLightToDraw();
 	void AddLightToDraw(float Raidus, float SpecularExponent, glm::vec3 Position, glm::vec3 DiffuseColor, glm::vec3 SpecularColor);
 	void Clear();

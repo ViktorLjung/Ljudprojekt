@@ -31,29 +31,32 @@ int main()
 	
 	btCollisionShape* shape = new btBoxShape(btBoxShape(btVector3(0.5f, 0.5f, 0.5f)));
 
-	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, glm::vec3(0, 1, 0), glm::quat()));
-	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, glm::vec3(0.75, 5, 0), glm::quat()));
+ 	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0, 1, 0), glm::quat()));
+ 	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0.75, 5, 0), glm::quat()));
 
 
 	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
-	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, glm::vec3(0, -5, 0), glm::quat()));
+	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 0.5f, glm::vec3(0, -5, 0), glm::quat()));
 	
 	
+
+	std::shared_ptr<Model>  model; 
+	model = std::make_shared<Model>("Assets/Models/Sphere.obj");
 
 	btCollisionShape* sphere = new btSphereShape(0.5f);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		objectManager.AddObject(new Object(sphere, "Assets/Models/Sphere.obj", 1, glm::vec3(0.25f*i, 1 * 2, 0), glm::quat()));
+		objectManager.AddObject(new Object(sphere, model, 1, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
 	}
 
 
 	for (Object* o : objectManager.GetObjects())
 	{
-		o->m_RigidBody = physicsSystem.AddRigidBody(o->m_Shape, o->m_Mass, o->m_Model->ModelMatrix());
-		renderer.AddModelToDraw(o->m_Model, true);
+		o->m_RigidBody = physicsSystem.AddRigidBody(o->m_Shape, o->m_Mass, o->m_Restitution, o->ModelMatrix());
+		
 	}
-
+	
 	renderer.AddLightToDraw();
 
 	double lastTime = glfwGetTime();
@@ -64,6 +67,12 @@ int main()
 		double time = glfwGetTime();
 		double dt = time - lastTime;
 		lastTime = time;
+
+
+		for (Object* o : objectManager.GetObjects())
+		{
+			renderer.AddObjectToDraw(o, true);
+		}
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////
 		//  Adams sound tutorial :D
@@ -91,6 +100,7 @@ int main()
 		physicsSystem.Update(dt);
 		physicsSystem.CheckCollisions();
 		renderer.Draw(dt);
+		renderer.Clear();
 		glfwPollEvents();
 	}
 
