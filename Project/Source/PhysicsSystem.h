@@ -9,7 +9,7 @@ public:
 	void Initialize();
 	void Update(double dt);
 	void CleanUp();
-
+	void CheckCollisions();
 
 	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, glm::mat4 transformGL);
 	void RemoveRigidBody(btCollisionShape* shape, btRigidBody* body);

@@ -8,6 +8,7 @@ Model::Model(std::string path)
 	m_ModelMatrix = glm::mat4();
 }
 
+
 glm::mat4 Model::ModelMatrix()
 {
 	return m_ModelMatrix;
@@ -22,6 +23,7 @@ void Model::ModelMatrix(glm::mat4 trans)
 {
 	m_ModelMatrix = trans;
 }
+
 
 
 

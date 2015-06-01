@@ -13,7 +13,7 @@ void PhysicsSystem::Initialize()
 	m_Solver = new btSequentialImpulseConstraintSolver();
 	m_World = new btDiscreteDynamicsWorld(m_Dispatcher, m_Broadface, m_Solver, m_CollisionConfig);
 
-	m_World->setGravity(btVector3(0, -1.82, 0));
+	m_World->setGravity(btVector3(0, -9.82, 0));
 }
 
 btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass, glm::mat4 transformGL)
@@ -31,7 +31,10 @@ btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass,
 	//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(transform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, shape, localInertia);
+	rbInfo.m_restitution = 1.3f;
+	rbInfo.m_friction = 1.5f;
 	btRigidBody* body = new btRigidBody(rbInfo);
+
 
 	m_World->addRigidBody(body);
 	return body;
@@ -40,7 +43,7 @@ btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass,
 
 void PhysicsSystem::Update(double dt)
 {
-	m_World->stepSimulation(1.f / 60.f, 10);
+	m_World->stepSimulation(dt, 10);
 
 	for (int j = m_World->getNumCollisionObjects() - 1; j >= 0; j--)
 	{
@@ -56,10 +59,46 @@ void PhysicsSystem::Update(double dt)
 		{
 			trans = object->getWorldTransform();
 		}
-		printf(" world   pos  object  %d = %f ,%f ,%f\n", j, float(trans.getOrigin().getX()), float(
-			trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+		//printf(" world   pos  object  %d = %f ,%f ,%f\n", j, float(trans.getOrigin().getX()), float(
+		//	trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 	}
 
+}
+
+void PhysicsSystem::CheckCollisions()
+{
+	int numManifolds = m_World->getDispatcher()->getNumManifolds();
+
+	for (int i = 0; i < numManifolds; i++)
+	{
+		btPersistentManifold* contactManifold = m_World->getDispatcher()->getManifoldByIndexInternal(i);
+
+		btCollisionObject* obA = (btCollisionObject*)contactManifold->getBody0();
+
+		btCollisionObject* obB = (btCollisionObject*)contactManifold->getBody1();
+		btRigidBody* body1 = btRigidBody::upcast(obA);
+		btRigidBody* body2 = btRigidBody::upcast(obB);
+
+		int numContacts = contactManifold->getNumContacts();
+
+		for (int j = 0; j < numContacts; j++)
+
+		{
+			body1->checkCollideWith(body2);
+
+			btManifoldPoint& pt = contactManifold->getContactPoint(j);
+
+			if (pt.getDistance() < 0.f)
+			{
+				const btVector3& ptA = pt.getPositionWorldOnA();
+
+				const btVector3& ptB = pt.getPositionWorldOnB();
+
+				const btVector3& normalOnB = pt.m_normalWorldOnB;
+				//printf("Collision!!!");
+			}
+		}
+	}
 }
 
 void PhysicsSystem::RemoveRigidBody(btCollisionShape* shape, btRigidBody* body)
@@ -99,4 +138,3 @@ void PhysicsSystem::CleanUp()
 	delete m_CollisionConfig;
 
 }
-

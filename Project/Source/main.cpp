@@ -29,11 +29,30 @@ int main()
 	renderer.LoadContent();
 	physicsSystem.Initialize();
 	
-	objectManager.Objects.front()->m_RigidBody = physicsSystem.AddRigidBody(objectManager.Objects.front()->m_Shape, objectManager.Objects.front()->m_Mass, objectManager.Objects.front()->m_Model->ModelMatrix());
-	objectManager.Objects.back()->m_RigidBody = physicsSystem.AddRigidBody(objectManager.Objects.back()->m_Shape, objectManager.Objects.back()->m_Mass, objectManager.Objects.back()->m_Model->ModelMatrix());
+	btCollisionShape* shape = new btBoxShape(btBoxShape(btVector3(0.5f, 0.5f, 0.5f)));
 
-	renderer.AddModelToDraw(objectManager.Objects.front()->m_Model, true);
-	renderer.AddModelToDraw(objectManager.Objects.back()->m_Model, true);
+	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, glm::vec3(0, 1, 0), glm::quat()));
+	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, glm::vec3(0.75, 5, 0), glm::quat()));
+
+
+	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
+	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, glm::vec3(0, -5, 0), glm::quat()));
+	
+	
+
+	btCollisionShape* sphere = new btSphereShape(0.5f);
+
+	for (int i = 0; i < 5; i++)
+	{
+		objectManager.AddObject(new Object(sphere, "Assets/Models/Sphere.obj", 1, glm::vec3(0.25f*i, 1 * 2, 0), glm::quat()));
+	}
+
+
+	for (Object* o : objectManager.GetObjects())
+	{
+		o->m_RigidBody = physicsSystem.AddRigidBody(o->m_Shape, o->m_Mass, o->m_Model->ModelMatrix());
+		renderer.AddModelToDraw(o->m_Model, true);
+	}
 
 	renderer.AddLightToDraw();
 
@@ -70,6 +89,7 @@ int main()
 			renderer.m_Camera->Forward(),
 			glm::vec3(0,1,0));
 		physicsSystem.Update(dt);
+		physicsSystem.CheckCollisions();
 		renderer.Draw(dt);
 		glfwPollEvents();
 	}
