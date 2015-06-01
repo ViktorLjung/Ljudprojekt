@@ -16,7 +16,7 @@ Renderer renderer = Renderer(); // First or break >:(
 ObjectManager objectManager = ObjectManager();
 
 static PhysicsSystem physicsSystem;
-//SoundSystem ss;
+SoundSystem ss;
 //SFX testljud;
 BGM bgmHisako("Assets/Sounds/hisako.wav");
 int once = 0;
@@ -58,12 +58,17 @@ int main()
 		//bgmHisako.CreateSound("Assets/Sounds/hisako.wav");
 		if (once == 0)
 		{
-			bgmHisako.PlaySound(0);
+			//bgmHisako.PlaySound(0);
 			once++;
 		}
-
+		
 		objectManager.Update(dt);
 		Update(dt);
+		ss.Update(
+			renderer.m_Camera->Position(),
+			glm::vec3(0),
+			renderer.m_Camera->Forward(),
+			glm::vec3(0,1,0));
 		physicsSystem.Update(dt);
 		renderer.Draw(dt);
 		glfwPollEvents();
