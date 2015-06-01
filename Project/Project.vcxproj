@@ -91,7 +91,6 @@
     <ClCompile Include="Source\Renderer.cpp" />
     <ClCompile Include="Source\SFX.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\SoundSystem.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
   </ItemGroup>

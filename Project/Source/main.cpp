@@ -94,9 +94,11 @@ int main()
 		Update(dt);
 		ss.Update(
 			renderer.m_Camera->Position(),
-			glm::vec3(1),
+			glm::vec3(0),
 			renderer.m_Camera->Forward(),
 			renderer.m_Camera->Up());
+//		ss.Update(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(0, -1, 0), glm::vec3(0, 0, 0));
+
 		physicsSystem.Update(dt);
 		physicsSystem.CheckCollisions();
 		renderer.Draw(dt);

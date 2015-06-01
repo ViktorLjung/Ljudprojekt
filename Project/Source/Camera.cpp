@@ -84,7 +84,7 @@ void Camera::Input(GLFWwindow* window, double dt, int windowWidth, int windowHei
 		&& m_LastKeyPress == GLFW_PRESS)
 	{
 		
-		bazinga.PlaySound(glm::vec3(0,-5,0), glm::vec3(0,0,0), 0.1f);
+		bazinga.PlaySound(glm::vec3(5,0,0), glm::vec3(0,0,0), 0.1f);
 	}
 
 	static double mousePosX, mousePosY;
