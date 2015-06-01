@@ -787,3 +787,13 @@ void Renderer::AddLightToDraw()
 	Light l = Light();
 	m_Lights.push_back(l);
 }
+
+glm::vec3 Renderer::GetCameraPosition()
+{
+	return m_Camera->Position();
+}
+
+glm::vec3 Renderer::GetCameraForward()
+{
+	return m_Camera->Forward();
+}

@@ -62,11 +62,27 @@ int main()
 	double lastTime = glfwGetTime();
 	glfwSetCursorPos(renderer.GetWindow(), renderer.WIDTH / 2, renderer.HEIGHT / 2);
 
+	int m_LastKeyPress = glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT);
 	while (!glfwWindowShouldClose(renderer.GetWindow()))// MAIN LOOP
 	{
 		double time = glfwGetTime();
 		double dt = time - lastTime;
 		lastTime = time;
+
+
+		if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
+			&& m_LastKeyPress == GLFW_PRESS)
+		{
+			Object* ob = new Object(sphere, model, 1, 1.1f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+			objectManager.AddObject(ob);
+			ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+			glm::vec3 force = renderer.GetCameraForward();
+			force *= 20;
+			ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+		}
+
+
+		m_LastKeyPress = glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT);
 
 
 		for (Object* o : objectManager.GetObjects())
