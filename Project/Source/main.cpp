@@ -87,7 +87,7 @@ int main()
 			renderer.m_Camera->Position(),
 			glm::vec3(0),
 			renderer.m_Camera->Forward(),
-			glm::vec3(0,1,0));
+			renderer.m_Camera->Up());
 		physicsSystem.Update(dt);
 		physicsSystem.CheckCollisions();
 		renderer.Draw(dt);

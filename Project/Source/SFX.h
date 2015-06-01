@@ -6,7 +6,6 @@ class SFX : public Sound
 {
 private:
 	void CreateSound(char* _fileName) override;
-
 public:
 	SFX() {};
 	SFX(char* _fileName)
