@@ -4,8 +4,8 @@
 
 class SFX : public Sound
 {
-private:
 public:
-	
+	SFX(char* _fileName)
+		: Sound(_fileName) {};
 
 };

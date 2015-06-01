@@ -1,6 +1,10 @@
 #pragma once
 #include "PrecompiledHeader.h"
 
+#include "SoundSystem.h"
+#include "SFX.h"
+#include "BGM.h"
+
 class Camera
 {
 public:
@@ -34,4 +38,5 @@ private:
 	float m_Pitch;
 	float m_Roll;
 	float m_Yaw;
+
 };

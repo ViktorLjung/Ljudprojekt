@@ -5,9 +5,11 @@
 #include "Model.h"
 #include "Renderer.h"
 #include "PhysicsSystem.h"
-#include "SFX.h"
-#include "SoundSystem.h"
 #include "ObjectManager.h"
+
+#include "SoundSystem.h"
+#include "SFX.h"
+#include "BGM.h"
 
 
 Renderer renderer = Renderer();
@@ -19,7 +21,9 @@ ObjectManager objectManager = ObjectManager();
 PhysicsSystem physicsSystem;
 
 //SoundSystem ss;
-SFX testljud;
+//SFX testljud;
+BGM bgmHisako("Assets/Sounds/hisako.wav");
+int once = 0;
 
 
 void Update(double dt);
@@ -51,8 +55,14 @@ int main()
 		// Först måste du skapa ett ljud. Parametrarna är filnamn och volym mellan 0-1.
 		// Sen är det fritt fram att spela det :D bgm behöver ingen pos för att spelas ut
 		//////////////////////////////////////////////////////////////////////////////////////////////////
-		testljud.CreateSound("Assets/Sounds/test.wav");
-		testljud.PlaySound(glm::vec3(0), 0.1f);
+		//testljud.CreateSound("Assets/Sounds/test.wav");
+		//testljud.PlaySound(glm::vec3(0), 0.1f);
+		//bgmHisako.CreateSound("Assets/Sounds/hisako.wav");
+		if (once == 0)
+		{
+			//bgmHisako.PlaySound(0);
+			once++;
+		}
 
 		objectManager.Update(dt);
 		Update(dt);
