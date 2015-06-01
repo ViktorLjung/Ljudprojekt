@@ -11,9 +11,7 @@ class Model
 {
 public:
 	Model(std::string path);
-	void ModelMatrix(glm::vec3 position, glm::quat orientation, glm::vec3 scale);
-	void ModelMatrix(glm::mat4 trans);
-	glm::mat4 ModelMatrix();
+	
 	
 	void CreateBuffers();
 	void Bind();
@@ -25,7 +23,6 @@ public:
 private:
 	bool LoadOBJ(std::string path);
 	
-	glm::mat4 m_ModelMatrix;
 	
 	std::string m_Directory;
 

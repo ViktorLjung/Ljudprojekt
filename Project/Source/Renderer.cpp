@@ -10,9 +10,9 @@ Renderer::Renderer()
 	m_NoiseTexture = 0;
 }
 
-void Renderer::AddModelToDraw(std::shared_ptr<Model> model, bool visible)
+void Renderer::AddObjectToDraw(Object* object, bool visible)
 {
-	m_ModelsToRender.push_back(std::make_tuple(model.get(), model->ModelMatrix(), visible));
+	m_ModelsToRender.push_back(std::make_tuple(object->m_Model.get(), object->ModelMatrix(), visible));
 }
 
 bool Renderer::Initialize()
@@ -311,7 +311,7 @@ void Renderer::GeometryPass()
 			continue;
 
 		m_GeometryProgram.Bind();
-		glUniformMatrix4fv(glGetUniformLocation(m_GeometryProgram.GetHandle(), "M"), 1, GL_FALSE, glm::value_ptr(model->ModelMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(m_GeometryProgram.GetHandle(), "M"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(m_GeometryProgram.GetHandle(), "V"), 1, GL_FALSE, glm::value_ptr(m_Camera->viewMatrix()));
 		glUniformMatrix4fv(glGetUniformLocation(m_GeometryProgram.GetHandle(), "P"), 1, GL_FALSE, glm::value_ptr(m_Camera->projectionMatrix()));
 

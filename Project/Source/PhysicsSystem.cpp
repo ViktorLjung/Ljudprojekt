@@ -16,7 +16,7 @@ void PhysicsSystem::Initialize()
 	m_World->setGravity(btVector3(0, -9.82, 0));
 }
 
-btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass, glm::mat4 transformGL)
+btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass, btScalar restitution, glm::mat4 transformGL)
 {
 	btTransform transform;
 	transform.setFromOpenGLMatrix(glm::value_ptr(transformGL));
@@ -31,7 +31,7 @@ btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass,
 	//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(transform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, shape, localInertia);
-	rbInfo.m_restitution = 1.3f;
+	rbInfo.m_restitution = restitution;
 	rbInfo.m_friction = 1.5f;
 	btRigidBody* body = new btRigidBody(rbInfo);
 
