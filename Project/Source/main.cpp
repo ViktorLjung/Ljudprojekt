@@ -20,7 +20,7 @@ SoundSystem ss;
 //SFX testljud;
 BGM bgmHisako("Assets/Sounds/hisako.wav");
 int once = 0;
-
+std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
 
 void Update(double dt);
 
@@ -38,7 +38,7 @@ int main()
 	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
 	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, 0), glm::quat()));
 
-	{
+	/*{
 		glm::quat rot = glm::quat();
 		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(0, 0, -1));
 		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(-75, -5, 0), rot));
@@ -57,7 +57,7 @@ int main()
 		glm::quat rot = glm::quat();
 		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(1, 0, 0));
 		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, -75), rot));
-	}
+	}*/
 
 
 	
@@ -67,10 +67,10 @@ int main()
 
 	btCollisionShape* sphere = new btSphereShape(0.5f);
 
-	for (int i = 0; i < 10; i++)
-	{
-		objectManager.AddObject(new Object(sphere, model, 1, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
-	}
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	objectManager.AddObject(new Object(sphere, model, 1, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
+	//}
 
 
 	for (Object* o : objectManager.GetObjects())
@@ -95,11 +95,11 @@ int main()
 		if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
 			&& m_LastKeyPress == GLFW_PRESS)
 		{
-			Object* ob = new Object(sphere, model, 1, 1.1f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+			Object* ob = new Object(sphere, model, 1, 0.5f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 			objectManager.AddObject(ob);
 			ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
 			glm::vec3 force = renderer.GetCameraForward();
-			force *= 70;
+			force *= 20;
 			ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 		}
 
@@ -127,6 +127,8 @@ int main()
 			//bgmHisako.PlaySound(0);
 			once++;
 		}
+
+		
 		
 		objectManager.Update(dt);
 		Update(dt);
@@ -135,10 +137,32 @@ int main()
 			glm::vec3(0),
 			renderer.m_Camera->Forward(),
 			renderer.m_Camera->Up());
+
 		physicsSystem.Update(dt);
-		physicsSystem.CheckCollisions();
+		collisions = physicsSystem.CheckCollisions();
+
+		for (auto tup : collisions)
+		{
+			btRigidBody* body1;
+			btRigidBody* body2;
+			btManifoldPoint mani;
+			std::tie(body1, body2, mani) = collisions.back();
+			
+			for (Object* o : objectManager.GetObjects())
+			{
+				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2) && mani.getAppliedImpulse() > 1)
+				{
+					printf("body %d, impulse %f\n", o->m_RigidBody == body1, mani.getAppliedImpulse());
+					o->Boop(mani.getAppliedImpulse());
+				}
+			}
+		}
+		collisions.clear();
+
+
 		renderer.Draw(dt);
 		renderer.Clear();
+		
 		glfwPollEvents();
 	}
 

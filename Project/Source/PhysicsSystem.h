@@ -1,5 +1,7 @@
 #include "PrecompiledHeader.h"
 #include <btBulletDynamicsCommon.h>
+#include <list>
+#include <tuple>
 
 class PhysicsSystem
 {
@@ -9,10 +11,12 @@ public:
 	void Initialize();
 	void Update(double dt);
 	void CleanUp();
-	void CheckCollisions();
+	std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> CheckCollisions();
 
 	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, btScalar restitution, glm::mat4 transformGL);
 	void RemoveRigidBody(btCollisionShape* shape, btRigidBody* body);
+
+
 
 private:
 	btDefaultCollisionConfiguration* m_CollisionConfig;

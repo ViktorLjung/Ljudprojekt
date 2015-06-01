@@ -3,6 +3,7 @@
 #include "PrecompiledHeader.h"
 #include <btBulletDynamicsCommon.h>
 #include "Model.h"
+#include "SFX.h"
 
 class Object
 {
@@ -14,7 +15,6 @@ public:
 
 	Object(btCollisionShape* shape, std::shared_ptr<Model>  model,
 		btScalar mass, btScalar restitution, glm::vec3 position, glm::quat orientation);
-
 
 	void Update(double dt);
 	std::shared_ptr<Model>  m_Model;
@@ -29,6 +29,9 @@ public:
 	glm::vec3 m_Position;
 	glm::quat m_Orientation;
 	glm::vec3 m_Scale;
+
+	void Boop(float appImpulse);
+	SFX boop;
 
 	void ModelMatrix(glm::vec3 position, glm::quat orientation, glm::vec3 scale);
 	void ModelMatrix(glm::mat4 trans);
