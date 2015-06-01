@@ -39,7 +39,8 @@ public:
 	void DrawScene();
 	void LoadContent();
 
-	
+	glm::vec3 GetCameraPosition();
+	glm::vec3 GetCameraForward();
 
 	void GeometryPass();
 	void SSAOPass();
