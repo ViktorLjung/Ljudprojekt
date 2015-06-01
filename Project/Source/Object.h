@@ -7,7 +7,8 @@ class Object
 public:
 	Object(btCollisionShape* shape, std::string modelPath);
 	Object(btCollisionShape* shape, std::string modelPath,
-		btScalar mass, glm::vec3 position, glm::quat orientation, glm::vec3 scale);
+		btScalar mass, glm::vec3 position, glm::quat orientation);
+
 
 	void Update(double dt);
 	std::shared_ptr<Model>  m_Model;
