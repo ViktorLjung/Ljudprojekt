@@ -15,7 +15,9 @@ private:
 public:
 	Sound() {};
 	Sound(char* _fileName) {};
-	virtual void PlaySound(glm::vec3 _pos, glm::vec3 _vel, float _volume) {};
+	virtual void PlaySound(glm::vec3 _pos, float _volume) {};
+	virtual void PlaySound(float _volume) {};
+
 	//virtual void PlaySound(float _volume);
 	
 };

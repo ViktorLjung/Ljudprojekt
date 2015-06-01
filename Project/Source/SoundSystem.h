@@ -15,6 +15,7 @@ private:
 	
 public:
 	SoundSystem();
-	void Update(glm::vec3 lisPos, glm::vec3 lisVel, glm::vec3 lisFor, glm::vec3 lisUp);
+	void Update(glm::vec3 lisPos, glm::vec3 lisFor, glm::vec3 lisUp);
+
 	
 };

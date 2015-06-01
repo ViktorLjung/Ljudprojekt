@@ -13,6 +13,7 @@ public:
 		CreateSound(_fileName);
 	};
 
-	void PlaySound(glm::vec3 _pos, glm::vec3 _vel, float _volume) override;
+	void PlaySound(glm::vec3 _pos, float _volume) override;
+	void Update(glm::vec3 _pos);
 
 };
