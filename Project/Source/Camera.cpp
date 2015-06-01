@@ -14,7 +14,7 @@ Camera::Camera(float fov, float AspectRatio, float nearClip, float farClip)
 	m_NearClip = nearClip;
 	m_FarClip = farClip;
 
-	bazinga = SFX("Assets/Sounds/hisako.wav");
+	bazinga = SFX("Assets/Sounds/bazinga.mp3");
 	
 }
 
@@ -84,7 +84,7 @@ void Camera::Input(GLFWwindow* window, double dt, int windowWidth, int windowHei
 		&& m_LastKeyPress == GLFW_PRESS)
 	{
 		
-		bazinga.PlaySound(glm::vec3(0,-5,0), glm::vec3(1,1,1), 0.1f);
+		bazinga.PlaySound(glm::vec3(0,-5,0), glm::vec3(0,0,0), 0.1f);
 	}
 
 	static double mousePosX, mousePosY;

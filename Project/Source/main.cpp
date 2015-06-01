@@ -85,7 +85,7 @@ int main()
 		Update(dt);
 		ss.Update(
 			renderer.m_Camera->Position(),
-			glm::vec3(0),
+			glm::vec3(1),
 			renderer.m_Camera->Forward(),
 			renderer.m_Camera->Up());
 		physicsSystem.Update(dt);

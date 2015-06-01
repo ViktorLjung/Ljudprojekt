@@ -8,6 +8,7 @@ protected:
 	virtual void CreateSound(char* _fileName) {};
 
 	FMOD::Sound *m_pSound;
+	FMOD::Channel *m_pChannel;
 
 private:
 
