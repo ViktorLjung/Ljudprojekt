@@ -58,7 +58,7 @@ int main()
 		//bgmHisako.CreateSound("Assets/Sounds/hisako.wav");
 		if (once == 0)
 		{
-			//bgmHisako.PlaySound(0);
+			bgmHisako.PlaySound(0);
 			once++;
 		}
 

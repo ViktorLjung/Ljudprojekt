@@ -39,4 +39,6 @@ private:
 	float m_Roll;
 	float m_Yaw;
 
+	SFX bazinga;
+	int m_LastKeyPress;
 };

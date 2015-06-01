@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-BGM bazinga("Assets/Sounds/bazinga.wav");
+
 
 Camera::Camera(float fov, float AspectRatio, float nearClip, float farClip)
 {
@@ -14,7 +14,7 @@ Camera::Camera(float fov, float AspectRatio, float nearClip, float farClip)
 	m_NearClip = nearClip;
 	m_FarClip = farClip;
 
-	
+	bazinga = SFX("Assets/Sounds/bazinga.mp3");
 	
 }
 
@@ -71,9 +71,10 @@ void Camera::Input(GLFWwindow* window, double dt, int windowWidth, int windowHei
 		m_Position -= Right() * m_MoveSpeed * (float)dt;
 	}
 
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE
+		&& m_LastKeyPress == GLFW_PRESS)
 	{
-		std::cout << "FUCK MEE";
+		
 		bazinga.PlaySound(1);
 	}
 
@@ -98,6 +99,7 @@ void Camera::Input(GLFWwindow* window, double dt, int windowWidth, int windowHei
 	}
 	glfwSetCursorPos(window, windowWidth / 2, windowHeight / 2);
 
+	m_LastKeyPress = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 }
 
 

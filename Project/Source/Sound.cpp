@@ -5,6 +5,11 @@ Sound::Sound(char* _fileName)
 	CreateSound(_fileName);
 }
 
+Sound::Sound()
+{
+
+}
+
 void Sound::CreateSound(char* _fileName)
 {
 	m_pSystem->createSound(_fileName, FMOD_HARDWARE, 0, &m_pSound);
