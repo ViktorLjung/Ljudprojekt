@@ -17,7 +17,13 @@ void Model::ModelMatrix(glm::vec3 position, glm::quat orientation, glm::vec3 sca
 {
 	m_ModelMatrix = glm::translate(glm::mat4(), position) * glm::toMat4(orientation) * glm::scale(scale);
 }
-	
+
+void Model::ModelMatrix(glm::mat4 trans)
+{
+	m_ModelMatrix = trans;
+}
+
+
 
 bool Model::LoadTexture()
 {

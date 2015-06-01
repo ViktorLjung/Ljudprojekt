@@ -12,14 +12,10 @@
 #include "BGM.h"
 
 
-Renderer renderer = Renderer();
+Renderer renderer = Renderer(); // First or break >:(
 ObjectManager objectManager = ObjectManager();
 
-//std::shared_ptr<Model> model;
-//std::shared_ptr<Model> Plane;
-
-PhysicsSystem physicsSystem;
-
+static PhysicsSystem physicsSystem;
 //SoundSystem ss;
 //SFX testljud;
 BGM bgmHisako("Assets/Sounds/hisako.wav");
@@ -33,10 +29,12 @@ int main()
 	renderer.LoadContent();
 	physicsSystem.Initialize();
 	
-	//model = std::make_shared<Model>("Assets/Models/SSAOTest3.obj");
-	//Plane = std::make_shared<Model>("Assets/Models/Raptor.obj", glm::vec3(3, 0, -3), glm::quat(), glm::vec3(1, 1, 1));
+	objectManager.Objects.front()->m_RigidBody = physicsSystem.AddRigidBody(objectManager.Objects.front()->m_Shape, objectManager.Objects.front()->m_Mass, objectManager.Objects.front()->m_Model->ModelMatrix());
+	objectManager.Objects.back()->m_RigidBody = physicsSystem.AddRigidBody(objectManager.Objects.back()->m_Shape, objectManager.Objects.back()->m_Mass, objectManager.Objects.back()->m_Model->ModelMatrix());
+
 	renderer.AddModelToDraw(objectManager.Objects.front()->m_Model, true);
-	//renderer.AddModelToDraw(Plane, true);
+	renderer.AddModelToDraw(objectManager.Objects.back()->m_Model, true);
+
 	renderer.AddLightToDraw();
 
 	double lastTime = glfwGetTime();

@@ -11,7 +11,7 @@ public:
 	void CleanUp();
 
 
-	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, glm::vec4 transformGL);
+	btRigidBody* AddRigidBody(btCollisionShape* shape, btScalar mass, glm::mat4 transformGL);
 	void RemoveRigidBody(btCollisionShape* shape, btRigidBody* body);
 private:
 

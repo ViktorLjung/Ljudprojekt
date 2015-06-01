@@ -7,24 +7,34 @@ Object::Object(btCollisionShape* shape, std::string modelPath)
 	m_Position = glm::vec3(0, 0, 0);
 	m_Orientation = glm::quat();
 	m_Scale = glm::vec3(1, 1, 1);
-	m_PhysicsOrigin = glm::vec3(1, 1, 1);
-
 	m_Shape = shape;
-
-	scaler = 1.f;
+	m_Model->ModelMatrix(m_Position, m_Orientation, m_Scale);
 }
+Object::Object(btCollisionShape* shape, std::string modelPath, btScalar mass, glm::vec3 position, glm::quat orientation, glm::vec3 scale)
+{
+	m_Model = std::make_shared<Model>(modelPath);
+	m_Mass = mass;
+	m_Position = position;
+	m_Orientation = orientation;
+	m_Scale = scale;
+	m_Shape = shape;
+	m_Model->ModelMatrix(m_Position, m_Orientation, m_Scale);
+}
+
 
 void Object::Update(double dt)
 {
+	btTransform trans;
 
-	if (m_Scale.y > 2.f)
-		scaler *= -1;
-	else if (m_Scale.y < 0.1f)
-		scaler *= -1;
+	if (m_RigidBody && m_RigidBody->getMotionState())
+	{
+		m_RigidBody->getMotionState()->getWorldTransform(trans);
+	}
 
-
-
-	m_Scale += scaler *dt;
-	m_Model->ModelMatrix(m_Position, m_Orientation, m_Scale);
+	glm::mat4 transformGL;
+	trans.getOpenGLMatrix(glm::value_ptr(transformGL));
+	
+	m_Model->ModelMatrix(transformGL);
+	
 }
 
