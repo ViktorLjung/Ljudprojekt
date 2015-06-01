@@ -13,7 +13,7 @@ void PhysicsSystem::Initialize()
 	m_Solver = new btSequentialImpulseConstraintSolver();
 	m_World = new btDiscreteDynamicsWorld(m_Dispatcher, m_Broadface, m_Solver, m_CollisionConfig);
 
-	m_World->setGravity(btVector3(0, -9.82, 0));
+	m_World->setGravity(btVector3(0, -1.82, 0));
 }
 
 btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass, glm::mat4 transformGL)

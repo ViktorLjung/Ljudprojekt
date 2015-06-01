@@ -26,9 +26,11 @@ int main()
 	physicsSystem.Initialize();
 	
 	objectManager.Objects.front()->m_RigidBody = physicsSystem.AddRigidBody(objectManager.Objects.front()->m_Shape, objectManager.Objects.front()->m_Mass, objectManager.Objects.front()->m_Model->ModelMatrix());
+	objectManager.Objects.back()->m_RigidBody = physicsSystem.AddRigidBody(objectManager.Objects.back()->m_Shape, objectManager.Objects.back()->m_Mass, objectManager.Objects.back()->m_Model->ModelMatrix());
 
 	renderer.AddModelToDraw(objectManager.Objects.front()->m_Model, true);
-	
+	renderer.AddModelToDraw(objectManager.Objects.back()->m_Model, true);
+
 	renderer.AddLightToDraw();
 
 	double lastTime = glfwGetTime();
