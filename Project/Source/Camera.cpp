@@ -14,7 +14,7 @@ Camera::Camera(float fov, float AspectRatio, float nearClip, float farClip)
 	m_NearClip = nearClip;
 	m_FarClip = farClip;
 
-	bazinga = SFX("Assets/Sounds/bazinga.mp3");
+	bazinga = SFX("Assets/Sounds/hisako.wav");
 	
 }
 
@@ -52,6 +52,15 @@ glm::vec3 Camera::Right()
 	return glm::vec3(glm::vec4(1, 0, 0, 0) * Orientation);
 }
 
+glm::vec3 Camera::Up()
+{
+	glm::mat4 Orientation;
+	Orientation = glm::rotate(Orientation, m_Pitch, glm::vec3(1, 0, 0));
+	Orientation = glm::rotate(Orientation, m_Yaw, glm::vec3(0, 1, 0));
+
+	return glm::vec3(glm::vec4(0, 1, 0, 0) * Orientation);
+}
+
 void Camera::Input(GLFWwindow* window, double dt, int windowWidth, int windowHeight)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -75,7 +84,7 @@ void Camera::Input(GLFWwindow* window, double dt, int windowWidth, int windowHei
 		&& m_LastKeyPress == GLFW_PRESS)
 	{
 		
-		bazinga.PlaySound(1);
+		bazinga.PlaySound(glm::vec3(0,-5,0), glm::vec3(1,1,1), 0.1f);
 	}
 
 	static double mousePosX, mousePosY;

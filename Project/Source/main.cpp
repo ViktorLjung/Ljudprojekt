@@ -16,7 +16,7 @@ Renderer renderer = Renderer(); // First or break >:(
 ObjectManager objectManager = ObjectManager();
 
 static PhysicsSystem physicsSystem;
-//SoundSystem ss;
+SoundSystem ss;
 //SFX testljud;
 BGM bgmHisako("Assets/Sounds/hisako.wav");
 int once = 0;
@@ -89,9 +89,14 @@ int main()
 			//bgmHisako.PlaySound(0);
 			once++;
 		}
-
+		
 		objectManager.Update(dt);
 		Update(dt);
+		ss.Update(
+			renderer.m_Camera->Position(),
+			glm::vec3(0),
+			renderer.m_Camera->Forward(),
+			renderer.m_Camera->Up());
 		physicsSystem.Update(dt);
 		physicsSystem.CheckCollisions();
 		renderer.Draw(dt);
