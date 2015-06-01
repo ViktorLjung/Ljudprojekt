@@ -16,8 +16,15 @@ Renderer renderer = Renderer(); // First or break >:(
 ObjectManager objectManager = ObjectManager();
 
 static PhysicsSystem physicsSystem;
+<<<<<<< HEAD
 SoundSystem ss = SoundSystem();
 
+int once = 0;
+=======
+SoundSystem ss;
+//SFX testljud;
+SFX bgmHisako("Assets/Sounds/test.mp3");
+>>>>>>> 8749379fe139127c03efd89cd9c9dcce2d37e29f
 
 int once = 0;
 std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
@@ -30,9 +37,16 @@ int main()
 	
 	btCollisionShape* shape = new btBoxShape(btBoxShape(btVector3(0.5f, 0.5f, 0.5f)));
 
+<<<<<<< HEAD
+ 	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0, 1, 0), glm::quat()));
+ 	objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0.75, 5, 0), glm::quat()));
+	
+=======
  	//objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0, 1, 0), glm::quat()));
  	//objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0.75, 5, 0), glm::quat()));
-	
+	//bgmHisako.PlaySound(glm::vec3(100000, 0, 0), 0.1f);
+
+>>>>>>> 8749379fe139127c03efd89cd9c9dcce2d37e29f
 	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
 	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, 0), glm::quat()));
 

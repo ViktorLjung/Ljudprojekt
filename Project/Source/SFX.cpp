@@ -4,7 +4,7 @@
 void SFX::CreateSound(char* _fileName)
 {
 	m_pSystem->createSound(_fileName, FMOD_3D, 0, &m_pSound);
-	m_pSound->setMode(FMOD_LOOP_NORMAL);
+	m_pSound->setMode(FMOD_LOOP_OFF);
 }
 
 void SFX::PlaySound(glm::vec3 _pos, float _volume)

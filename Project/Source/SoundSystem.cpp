@@ -9,7 +9,7 @@ SoundSystem::SoundSystem()
 void SoundSystem::Initialize()
 {
 	FMOD::System_Create(&m_pSystem);
-	m_pSystem->init(36, FMOD_3D, NULL);
+	m_pSystem->init(128, FMOD_3D, NULL);
 	m_pSystem->set3DSettings(1.f, 1.f, 1.f);
 }
 

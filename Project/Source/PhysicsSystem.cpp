@@ -43,7 +43,7 @@ btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass,
 
 void PhysicsSystem::Update(double dt)
 {
-	m_World->stepSimulation(dt, 10);
+	m_World->stepSimulation(1.f / 60.f, 10);
 
 	for (int j = m_World->getNumCollisionObjects() - 1; j >= 0; j--)
 	{
@@ -65,9 +65,12 @@ void PhysicsSystem::Update(double dt)
 
 }
 
-void PhysicsSystem::CheckCollisions()
+std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> PhysicsSystem::CheckCollisions()
 {
 	int numManifolds = m_World->getDispatcher()->getNumManifolds();
+
+	std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
+	btManifoldPoint pt2;
 
 	for (int i = 0; i < numManifolds; i++)
 	{
@@ -78,16 +81,16 @@ void PhysicsSystem::CheckCollisions()
 		btCollisionObject* obB = (btCollisionObject*)contactManifold->getBody1();
 		btRigidBody* body1 = btRigidBody::upcast(obA);
 		btRigidBody* body2 = btRigidBody::upcast(obB);
+		
 
 		int numContacts = contactManifold->getNumContacts();
 
 		for (int j = 0; j < numContacts; j++)
-
 		{
 			body1->checkCollideWith(body2);
 
 			btManifoldPoint& pt = contactManifold->getContactPoint(j);
-
+			pt2 = contactManifold->getContactPoint(j);
 			if (pt.getDistance() < 0.f)
 			{
 				const btVector3& ptA = pt.getPositionWorldOnA();
@@ -95,10 +98,34 @@ void PhysicsSystem::CheckCollisions()
 				const btVector3& ptB = pt.getPositionWorldOnB();
 
 				const btVector3& normalOnB = pt.m_normalWorldOnB;
+
+
 				//printf("Collision!!!");
 			}
 		}
+		if (pt2.getAppliedImpulse() > 1)
+		{
+			if (collisions.size() > 0)
+			{
+				btRigidBody* prevbody1;
+				btRigidBody* prevbody2;
+				btManifoldPoint prevmani;
+				std::tie(prevbody1, prevbody2, prevmani) = collisions.back();
+
+				if (prevbody1 != body1 && prevbody2 != body2 ||
+					prevbody1 != body2 && prevbody2 != body1)
+				{
+					collisions.push_back(std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>(body1, body2, pt2));
+				}
+			}
+			else
+			{
+				collisions.push_back(std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>(body1, body2, pt2));
+			}
+		}
+		
 	}
+	return collisions;
 }
 
 void PhysicsSystem::RemoveRigidBody(btCollisionShape* shape, btRigidBody* body)
