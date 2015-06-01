@@ -16,7 +16,7 @@ void PhysicsSystem::Initialize()
 	m_World->setGravity(btVector3(0, -9.82, 0));
 }
 
-btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass, glm::vec4 transformGL)
+btRigidBody* PhysicsSystem::AddRigidBody(btCollisionShape* shape, btScalar mass, glm::mat4 transformGL)
 {
 	btTransform transform;
 	transform.setFromOpenGLMatrix(glm::value_ptr(transformGL));
@@ -42,7 +42,6 @@ void PhysicsSystem::Update(double dt)
 {
 	m_World->stepSimulation(1.f / 60.f, 10);
 
-
 	for (int j = m_World->getNumCollisionObjects() - 1; j >= 0; j--)
 	{
 		btCollisionObject* object = m_World->getCollisionObjectArray()[j];
@@ -57,8 +56,8 @@ void PhysicsSystem::Update(double dt)
 		{
 			trans = object->getWorldTransform();
 		}
-		//printf(" world   pos  object  %d = %f ,%f ,%f\n", j, float(trans.getOrigin().getX()), float(
-		//	trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+		printf(" world   pos  object  %d = %f ,%f ,%f\n", j, float(trans.getOrigin().getX()), float(
+			trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 	}
 
 }

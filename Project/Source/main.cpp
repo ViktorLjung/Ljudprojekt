@@ -10,14 +10,10 @@
 #include "ObjectManager.h"
 
 
-Renderer renderer = Renderer();
+Renderer renderer = Renderer(); // First or break >:(
 ObjectManager objectManager = ObjectManager();
 
-//std::shared_ptr<Model> model;
-//std::shared_ptr<Model> Plane;
-
-PhysicsSystem physicsSystem;
-
+static PhysicsSystem physicsSystem;
 //SoundSystem ss;
 SFX testljud;
 
@@ -29,10 +25,10 @@ int main()
 	renderer.LoadContent();
 	physicsSystem.Initialize();
 	
-	//model = std::make_shared<Model>("Assets/Models/SSAOTest3.obj");
-	//Plane = std::make_shared<Model>("Assets/Models/Raptor.obj", glm::vec3(3, 0, -3), glm::quat(), glm::vec3(1, 1, 1));
+	objectManager.Objects.front()->m_RigidBody = physicsSystem.AddRigidBody(objectManager.Objects.front()->m_Shape, objectManager.Objects.front()->m_Mass, objectManager.Objects.front()->m_Model->ModelMatrix());
+
 	renderer.AddModelToDraw(objectManager.Objects.front()->m_Model, true);
-	//renderer.AddModelToDraw(Plane, true);
+	
 	renderer.AddLightToDraw();
 
 	double lastTime = glfwGetTime();
