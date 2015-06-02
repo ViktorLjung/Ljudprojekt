@@ -105,27 +105,45 @@ std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> PhysicsSystem
 		}
 		if (pt2.getAppliedImpulse() > 1)
 		{
-			if (collisions.size() > 0)
-			{
-				btRigidBody* prevbody1;
-				btRigidBody* prevbody2;
-				btManifoldPoint prevmani;
-				std::tie(prevbody1, prevbody2, prevmani) = collisions.back();
-
-				if (prevbody1 != body1 && prevbody2 != body2 ||
-					prevbody1 != body2 && prevbody2 != body1)
-				{
-					collisions.push_back(std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>(body1, body2, pt2));
-				}
-			}
-			else
-			{
-				collisions.push_back(std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>(body1, body2, pt2));
-			}
+			
+			collisions.push_back(std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>(body1, body2, pt2));
 		}
 		
 	}
-	return collisions;
+
+
+	std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisionsNoDuplicates;
+
+	collisionsNoDuplicates.push_back(collisions.front()); //No empty plz
+
+	for (auto i = collisions.begin(); i != collisions.end(); i++)
+	{
+		btRigidBody* b1;
+		btRigidBody* b2;
+		btManifoldPoint m;
+		std::tie(b1, b2, m) = (*i);
+
+		for (auto x = collisionsNoDuplicates.begin(); x != collisionsNoDuplicates.end(); x++)
+		{
+			btRigidBody* b1dup;
+			btRigidBody* b2dup;
+			btManifoldPoint mdup;
+			std::tie(b1dup, b2dup, mdup) = (*x);
+
+			if (b1 == b1dup && b2 == b2dup || b2 == b1dup && b1 == b2dup)
+			{
+				continue;
+			}
+			else
+			{
+				collisionsNoDuplicates.push_back((*i));
+				break;
+			}
+		}
+	}
+
+
+	return collisionsNoDuplicates;
 }
 
 void PhysicsSystem::RemoveRigidBody(btCollisionShape* shape, btRigidBody* body)

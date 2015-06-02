@@ -30,13 +30,23 @@ std::vector<int> currentInput;
 
 int main()
 {
+/*
 	Sounds.push_back(SFX("Assets/Sounds/Guitar/C.wav"));
 	Sounds.push_back(SFX("Assets/Sounds/Guitar/D.wav"));
 	Sounds.push_back(SFX("Assets/Sounds/Guitar/E.wav"));
 	Sounds.push_back(SFX("Assets/Sounds/Guitar/F.wav"));
 	Sounds.push_back(SFX("Assets/Sounds/Guitar/G.wav"));
 	Sounds.push_back(SFX("Assets/Sounds/Guitar/ALow.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));*/
+
+
+	Sounds.push_back(SFX("Assets/Sounds/Wubs/WubSnare2.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Wubs/WubSnare.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Wubs/HeavySnare.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Wubs/WubKick.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Wubs/Kick2.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Wubs/Snare.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Wubs/Wub.wav"));
 
 
 	renderer.LoadContent();
@@ -108,11 +118,11 @@ int main()
 		if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
 			&& m_LastKeyPress == GLFW_PRESS)
 		{
-			Object* ob = new Object(sphere, model, 1, 0.5f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+			Object* ob = new Object(sphere, model, 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 			objectManager.AddObject(ob);
 			ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
 			glm::vec3 force = renderer.GetCameraForward();
-			force *= 20;
+			force *= 0;
 			ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 		}
 
@@ -155,6 +165,7 @@ int main()
 		physicsSystem.Update(dt);
 		collisions = physicsSystem.CheckCollisions();
 
+
 		for (auto tup : collisions)
 		{
 			btRigidBody* body1;
@@ -164,15 +175,14 @@ int main()
 			
 			for (Object* o : objectManager.GetObjects())
 			{
-				if (o->m_RigidBody == body1 && mani.getAppliedImpulse() > 0)
+				if (o->m_RigidBody->isStaticObject())
+					continue;
+
+				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2))
 				{
-					printf("body %d, impulse %f\n", o->m_RigidBody == body1, mani.getAppliedImpulse());
-					o->Boop(mani.getAppliedImpulse());
-				}
-				if(o->m_RigidBody == body2 && mani.getAppliedImpulse() > 0)
-				{
-					printf("body %d, impulse %f\n", o->m_RigidBody == body1, mani.getAppliedImpulse());
-					o->Boop(mani.getAppliedImpulse());
+					printf("body %d, impulse %f\n", mani.getAppliedImpulse());
+					Sounds[rand()%7].PlaySound(glm::vec3(), 0.3f);
+					//o->Boop(mani.getAppliedImpulse());
 				}
 			}
 		}
