@@ -31,7 +31,7 @@ public:
 	glm::vec3 m_Scale;
 
 	void Boop(float appImpulse);
-	SFX boop;
+	//SFX boop;
 
 	void ModelMatrix(glm::vec3 position, glm::quat orientation, glm::vec3 scale);
 	void ModelMatrix(glm::mat4 trans);

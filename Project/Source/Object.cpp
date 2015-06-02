@@ -11,7 +11,6 @@ Object::Object(btCollisionShape* shape, std::string modelPath) //Static
 	m_ModelMatrix = glm::mat4();
 	ModelMatrix(m_Position, m_Orientation, m_Scale);
 	m_Restitution = 0;
-	boop = SFX("Assets/Sounds/boop.wav");
 
 }
 Object::Object(btCollisionShape* shape, std::string modelPath, 
@@ -26,7 +25,6 @@ Object::Object(btCollisionShape* shape, std::string modelPath,
 	m_Shape = shape;
 	m_ModelMatrix = glm::mat4();
 	ModelMatrix(m_Position, m_Orientation, m_Scale);
-	boop = SFX("Assets/Sounds/boop.wav");
 }
 
 Object::Object(btCollisionShape* shape, std::shared_ptr<Model> model,
@@ -41,7 +39,6 @@ Object::Object(btCollisionShape* shape, std::shared_ptr<Model> model,
 	m_Shape = shape;
 	m_ModelMatrix = glm::mat4();
 	ModelMatrix(m_Position, m_Orientation, m_Scale);
-	boop = SFX("Assets/Sounds/boop.wav");
 }
 
 
@@ -80,13 +77,13 @@ void Object::Update(double dt)
 
 void Object::Boop(float appImpulse)
 {
-	if (!boop.IsPlaying())
-	{
-		glm::vec3 vel;
-		btVector3 velb = m_RigidBody->getLinearVelocity();
-
-		vel = glm::vec3(velb.getX(), velb.getY(), velb.getZ());
-		boop.PlaySound(m_Position, appImpulse / 100);
-	}
+// 	if (!boop.IsPlaying())
+// 	{
+// 		glm::vec3 vel;
+// 		btVector3 velb = m_RigidBody->getLinearVelocity();
+// 
+// 		vel = glm::vec3(velb.getX(), velb.getY(), velb.getZ());
+// 		boop.PlaySound(m_Position, appImpulse / 100);
+// 	}
 }
 

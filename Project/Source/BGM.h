@@ -7,10 +7,9 @@ class BGM : public Sound
 private:
 	void CreateSound(char* _fileName);
 public:
-	BGM() {};
-	BGM(char* _fileName) 
-		: Sound(_fileName) {  
-		CreateSound(_fileName);
+	BGM(FMOD::System* _system)
+		: Sound(_system) {  
+		//CreateSound(_system);
 	};
 	//void PlaySound(float _volume);
 

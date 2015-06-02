@@ -42,6 +42,6 @@ private:
 	int m_LastKeyPress;
 	int m_LastButton;
 
-	BGM b1, b2, b3, b4, b5;
-	BGM *song;
+// 	BGM b1, b2, b3, b4, b5;
+// 	BGM *song;
 };

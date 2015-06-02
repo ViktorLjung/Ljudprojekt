@@ -14,12 +14,7 @@ Camera::Camera(float fov, float AspectRatio, float nearClip, float farClip)
 	m_NearClip = nearClip;
 	m_FarClip = farClip;
 
-	b1 = BGM("Assets/Sounds/beat1.wav");
-	b2 = BGM("Assets/Sounds/beat2.wav");
-	b3 = BGM("Assets/Sounds/beat3.wav");
-	b4 = BGM("Assets/Sounds/beat4.wav");
-	b5 = BGM("Assets/Sounds/beat5.wav");
-	song = &b1;
+	//song = &b1;
 }
 
 glm::mat4 Camera::projectionMatrix()
@@ -84,38 +79,38 @@ void Camera::Input(GLFWwindow* window, double dt, int windowWidth, int windowHei
 		m_Position -= Right() * m_MoveSpeed * (float)dt;
 	}
 
-	//Beats
-	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS)
-	{
-			song->StopSound();
-			b1.PlaySound(0.1);
-			song = &b1;
-	}
-	if (glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS)
-	{
-		
-			song->StopSound();
-			b2.PlaySound(0.1);
-			song = &b2;
-	}
-	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS)
-	{
-			song->StopSound();
-			b3.PlaySound(0.1);
-			song = &b3;
-	}
-	if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS)
-	{
-			song->StopSound();
-			b4.PlaySound(0.1);
-			song = &b4;
-	}
-	if (glfwGetKey(window, GLFW_KEY_F5) == GLFW_PRESS)
-	{
-			song->StopSound();
-			b5.PlaySound(0.1);
-			song = &b5;
-	}
+// 	//Beats
+// 	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS)
+// 	{
+// 			song->StopSound();
+// 			b1.PlaySound(0.1);
+// 			song = &b1;
+// 	}
+// 	if (glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS)
+// 	{
+// 		
+// 			song->StopSound();
+// 			b2.PlaySound(0.1);
+// 			song = &b2;
+// 	}
+// 	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS)
+// 	{
+// 			song->StopSound();
+// 			b3.PlaySound(0.1);
+// 			song = &b3;
+// 	}
+// 	if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS)
+// 	{
+// 			song->StopSound();
+// 			b4.PlaySound(0.1);
+// 			song = &b4;
+// 	}
+// 	if (glfwGetKey(window, GLFW_KEY_F5) == GLFW_PRESS)
+// 	{
+// 			song->StopSound();
+// 			b5.PlaySound(0.1);
+// 			song = &b5;
+// 	}
 
 	static double mousePosX, mousePosY;
 

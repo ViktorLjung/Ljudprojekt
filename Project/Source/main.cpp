@@ -30,13 +30,13 @@ std::vector<int> currentInput;
 
 int main()
 {
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/C.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/D.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/E.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/F.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/G.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/ALow.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));
+// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/C.wav"));
+// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/D.wav"));
+// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/E.wav"));
+// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/F.wav"));
+// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/G.wav"));
+// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/ALow.wav"));
+// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));
 
 
 	renderer.LoadContent();
@@ -135,13 +135,11 @@ int main()
 		//testljud.CreateSound("Assets/Sounds/test.wav");
 		//testljud.PlaySound(glm::vec3(0), 0.1f);
 		//bgmHisako.CreateSound("Assets/Sounds/hisako.wav");
-		if (once == 0)
-		{
-			//bgmHisako.PlaySound(0);
-			once++;
-		}
-
 		
+		
+
+
+
 		
 		objectManager.Update(dt);
 		Input();
@@ -216,7 +214,9 @@ void Input()
 	//Beats
 	if (currentInput[0] == GLFW_PRESS && currentInput[0] != previousInput[0])
 	{
-		Sounds[0].PlaySound(glm::vec3(), 0.2f);
+		//Sounds[0].PlaySound(glm::vec3(), 0.2f);
+		ss.PlaySFX("Assets/Sounds/boop.wav", 1, glm::vec3(0));
+
 	}
 	if (currentInput[1] == GLFW_PRESS && currentInput[1] != previousInput[1])
 	{
