@@ -30,23 +30,23 @@ std::vector<int> currentInput;
 
 int main()
 {
-/*
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/C.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/D.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/E.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/F.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/G.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/ALow.wav"));
-	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));*/
 
+	Sounds.push_back("Assets/Sounds/Guitar/C.wav");
+	Sounds.push_back("Assets/Sounds/Guitar/D.wav");
+	Sounds.push_back("Assets/Sounds/Guitar/E.wav");
+	Sounds.push_back("Assets/Sounds/Guitar/F.wav");
+	Sounds.push_back("Assets/Sounds/Guitar/G.wav");
+	Sounds.push_back("Assets/Sounds/Guitar/ALow.wav");
+	//Sounds.push_back("Assets/Sounds/Guitar/BLow.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");
 
-	Sounds.push_back("Assets/Sounds/Wubs/WubSnare2.wav");
+	/*Sounds.push_back("Assets/Sounds/Wubs/WubSnare2.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/WubSnare.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/HeavySnare.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/WubKick.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/Kick2.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/Snare.wav");
-	Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");*/
 
 
 	renderer.LoadContent();
@@ -179,8 +179,8 @@ int main()
 
 				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2))
 				{
-					printf("body %d, impulse %f\n", mani.getAppliedImpulse());
-					ss.PlaySFX(o->m_Sound, 1.f, glm::vec3(o->m_Position));
+					//printf("body %d, impulse %f\n", mani.getAppliedImpulse());
+					ss.PlaySFX(o->m_Sound, 100.f, glm::vec3(o->m_Position));
 					played = true;
 					break;
 				}
