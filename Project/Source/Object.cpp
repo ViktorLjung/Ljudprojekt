@@ -80,11 +80,13 @@ void Object::Update(double dt)
 
 void Object::Boop(float appImpulse)
 {
+	if (!boop.IsPlaying())
+	{
+		glm::vec3 vel;
+		btVector3 velb = m_RigidBody->getLinearVelocity();
 
-	glm::vec3 vel;
-	btVector3 velb = m_RigidBody->getLinearVelocity();
-
-	vel = glm::vec3(velb.getX(), velb.getY(), velb.getZ());
-	boop.PlaySound(m_Position, 0.3f);
+		vel = glm::vec3(velb.getX(), velb.getY(), velb.getZ());
+		boop.PlaySound(m_Position, appImpulse / 100);
+	}
 }
 
