@@ -197,7 +197,8 @@ void Input()
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_7));
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_Q));
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_E));
-	
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_R));
+
 	btCollisionShape* sphere = new btSphereShape(0.5f);
 	Object* ob = new Object(sphere, models[0], Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	
@@ -256,6 +257,18 @@ void Input()
 		Sounds.push_back("Assets/Sounds/Guitar/BLow.wav");
 	}
 
+	if (currentInput[9] == GLFW_PRESS && currentInput[9] != previousInput[9])
+	{
+		Sounds.clear();
+		Sounds.push_back("Assets/Sounds/Blip/C6.wav");
+		Sounds.push_back("Assets/Sounds/Blip/D6.wav");
+		Sounds.push_back("Assets/Sounds/Blip/E6.wav");
+		Sounds.push_back("Assets/Sounds/Blip/F6.wav");
+		Sounds.push_back("Assets/Sounds/Blip/G6.wav");
+		Sounds.push_back("Assets/Sounds/Blip/A6.wav");
+		Sounds.push_back("Assets/Sounds/Blip/H6.wav");
+	}
+
 	
 
 	previousInput = currentInput;
@@ -268,9 +281,19 @@ void Input()
 		objectManager.AddObject(ob);
 		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
 		glm::vec3 force = renderer.GetCameraForward();
-		force *= 50;
+		if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		{
+			force *= 0;
+		}
+		else
+		{
+			force *= 50;
+		}
 		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
+
+
+
 
 	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F1) == GLFW_PRESS)
 	{
