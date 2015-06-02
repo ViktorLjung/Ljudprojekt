@@ -10,10 +10,10 @@ class Object
 public:
 	Object(btCollisionShape* shape, std::string modelPath);
 
-	Object(btCollisionShape* shape, std::string modelPath,
+	Object(btCollisionShape* shape, std::string modelPath, char* sound,
 		btScalar mass, btScalar restitution, glm::vec3 position, glm::quat orientation);
 
-	Object(btCollisionShape* shape, std::shared_ptr<Model>  model,
+	Object(btCollisionShape* shape, std::shared_ptr<Model>  model, char* sound,
 		btScalar mass, btScalar restitution, glm::vec3 position, glm::quat orientation);
 
 	void Update(double dt);
@@ -24,6 +24,7 @@ public:
 	btRigidBody* m_RigidBody;
 	btCollisionShape* m_Shape;
 
+	char* m_Sound;
 
 	btScalar m_Restitution;
 	glm::vec3 m_Position;
@@ -31,7 +32,7 @@ public:
 	glm::vec3 m_Scale;
 
 	void Boop(float appImpulse);
-	SFX boop;
+	//SFX boop;
 
 	void ModelMatrix(glm::vec3 position, glm::quat orientation, glm::vec3 scale);
 	void ModelMatrix(glm::mat4 trans);
