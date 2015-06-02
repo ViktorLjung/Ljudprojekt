@@ -41,14 +41,27 @@ void SoundSystem::Update(glm::vec3 lisPos, glm::vec3 lisFor, glm::vec3 lisUp)
 
 void SoundSystem::PlaySFX(char* _filename, float _volume, glm::vec3 pos)
 {
-	SFX* sfx = cachedSounds[_filename];
+	SFX* sfx = cachedSFX[_filename];
 	if (sfx == nullptr)
 	{
 		sfx = new SFX(m_pSystem);
 		sfx->CreateSound(_filename);
-		cachedSounds[_filename] = sfx;
+		cachedSFX[_filename] = sfx;
 	}
 
 	sfx->PlaySound(pos, _volume);
 	sfxList.push_back(sfx);
+}
+
+void SoundSystem::PlayBGM(char* _fileName, float _volume)
+{
+	BGM* bgm = cachedBGM[_fileName];
+	if (bgm == nullptr)
+	{
+		bgm = new BGM(m_pSystem);
+		bgm->CreateSound(_fileName);
+		cachedBGM[_fileName] = bgm;
+	}
+
+	bgm->PlaySound(_volume);
 }

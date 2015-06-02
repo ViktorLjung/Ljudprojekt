@@ -27,6 +27,7 @@ public:
 	char* m_Sound;
 
 	btScalar m_Restitution;
+
 	glm::vec3 m_Position;
 	glm::quat m_Orientation;
 	glm::vec3 m_Scale;

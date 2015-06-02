@@ -27,7 +27,7 @@ void Input();
 std::shared_ptr<Model>  model;
 std::vector<int> previousInput;
 std::vector<int> currentInput;
-
+int m_LastKeyPress;
 int main()
 {
 
@@ -37,17 +37,19 @@ int main()
 	Sounds.push_back("Assets/Sounds/Guitar/F.wav");
 	Sounds.push_back("Assets/Sounds/Guitar/G.wav");
 	Sounds.push_back("Assets/Sounds/Guitar/ALow.wav");
-	//Sounds.push_back("Assets/Sounds/Guitar/BLow.wav");
-	Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");
+	Sounds.push_back("Assets/Sounds/Guitar/BLow.wav");
 
-	/*Sounds.push_back("Assets/Sounds/Wubs/WubSnare2.wav");
+/*
+
+	Sounds.push_back("Assets/Sounds/Wubs/WubSnare2.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/WubSnare.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/HeavySnare.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/WubKick.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/Kick2.wav");
 	Sounds.push_back("Assets/Sounds/Wubs/Snare.wav");
-	Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");*/
+	Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");
 
+*/
 
 	renderer.LoadContent();
 	physicsSystem.Initialize();
@@ -60,26 +62,26 @@ int main()
 	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
 	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(0, -5, 0), glm::quat()));
 
-	/*{
+	{
 		glm::quat rot = glm::quat();
 		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(0, 0, -1));
-		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(-75, -5, 0), rot));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(-75, -5, 0), rot));
 	}
 	{
 		glm::quat rot = glm::quat();
 		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(0, 0, 1));
-		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(75, -5, 0), rot));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj",  "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(75, -5, 0), rot));
 	}
 	{
 		glm::quat rot = glm::quat();
 		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(-1, 0, 0));
-		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, 75), rot));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(0, -5, 75), rot));
 	}
 	{
 		glm::quat rot = glm::quat();
 		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(1, 0, 0));
-		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, -75), rot));
-	}*/
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(0, -5, -75), rot));
+	}
 
 
 	
@@ -105,7 +107,7 @@ int main()
 	double lastTime = glfwGetTime();
 	glfwSetCursorPos(renderer.GetWindow(), renderer.WIDTH / 2, renderer.HEIGHT / 2);
 
-	int m_LastKeyPress = glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT);
+	m_LastKeyPress = glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT);
 	while (!glfwWindowShouldClose(renderer.GetWindow()))// MAIN LOOP
 	{
 		double time = glfwGetTime();
@@ -114,20 +116,7 @@ int main()
 
 		
 
-		if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
-			&& m_LastKeyPress == GLFW_PRESS)
-		{
-			Object* ob = new Object(sphere, model, "Assets/Sounds/Wubs/Wub.wav", 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-			objectManager.AddObject(ob);
-			ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-			glm::vec3 force = renderer.GetCameraForward();
-			force *= 0;
-			ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
-		}
-
-
-		m_LastKeyPress = glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT);
-
+		
 
 		for (Object* o : objectManager.GetObjects())
 		{
@@ -180,7 +169,8 @@ int main()
 				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2))
 				{
 					//printf("body %d, impulse %f\n", mani.getAppliedImpulse());
-					ss.PlaySFX(o->m_Sound, 100.f, glm::vec3(o->m_Position));
+					ss.PlaySFX(o->m_Sound, 0.5f, glm::vec3(o->m_Position));
+
 					played = true;
 					break;
 				}
@@ -226,73 +216,54 @@ void Input()
 
 	
 	btCollisionShape* sphere = new btSphereShape(0.5f);
-
+	Object* ob = new Object(sphere, model, Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 
 	//Beats
-	if (currentInput[0] == GLFW_PRESS && currentInput[0] != previousInput[0])
+	if (currentInput[0] == GLFW_PRESS )//&& currentInput[0] != previousInput[0])
 	{
-		Object* ob = new Object(sphere, model, Sounds[0], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-		objectManager.AddObject(ob);
-		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-		glm::vec3 force = renderer.GetCameraForward();
-		force *= 0;
-		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+		ob = new Object(sphere, model, Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
-	if (currentInput[1] == GLFW_PRESS && currentInput[1] != previousInput[1])
+	if (currentInput[1] == GLFW_PRESS )//&& currentInput[1] != previousInput[1])
 	{
-		Object* ob = new Object(sphere, model, Sounds[1], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-		objectManager.AddObject(ob);
-		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-		glm::vec3 force = renderer.GetCameraForward();
-		force *= 0;
-		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+		ob = new Object(sphere, model, Sounds[1], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
-	if (currentInput[2] == GLFW_PRESS && currentInput[2] != previousInput[2])
+	if (currentInput[2] == GLFW_PRESS)//&& currentInput[2] != previousInput[2])
 	{
 		Object* ob = new Object(sphere, model, Sounds[2], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-		objectManager.AddObject(ob);
-		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-		glm::vec3 force = renderer.GetCameraForward();
-		force *= 0;
-		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
-	if (currentInput[3] == GLFW_PRESS && currentInput[3] != previousInput[3])
+	if (currentInput[3] == GLFW_PRESS)//&& currentInput[3] != previousInput[3])
 	{
-		Object* ob = new Object(sphere, model, Sounds[3], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-		objectManager.AddObject(ob);
-		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-		glm::vec3 force = renderer.GetCameraForward();
-		force *= 0;
-		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+		ob = new Object(sphere, model, Sounds[3], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
-	if (currentInput[4] == GLFW_PRESS && currentInput[4] != previousInput[4])
+	if (currentInput[4] == GLFW_PRESS)//&& currentInput[4] != previousInput[4])
 	{
-		Object* ob = new Object(sphere, model, Sounds[4], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-		objectManager.AddObject(ob);
-		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-		glm::vec3 force = renderer.GetCameraForward();
-		force *= 0;
-		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+		ob = new Object(sphere, model, Sounds[4], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
-	if (currentInput[5] == GLFW_PRESS && currentInput[5] != previousInput[5])
+	if (currentInput[5] == GLFW_PRESS)// && currentInput[5] != previousInput[5])
 	{
-		Object* ob = new Object(sphere, model, Sounds[5], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-		objectManager.AddObject(ob);
-		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-		glm::vec3 force = renderer.GetCameraForward();
-		force *= 0;
-		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+		ob = new Object(sphere, model, Sounds[5], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
-	if (currentInput[6] == GLFW_PRESS && currentInput[6] != previousInput[6])
+	if (currentInput[6] == GLFW_PRESS)// && currentInput[6] != previousInput[6])
 	{
 		Object* ob = new Object(sphere, model, Sounds[6], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-		objectManager.AddObject(ob);
-		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
-		glm::vec3 force = renderer.GetCameraForward();
-		force *= 0;
-		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 
 	previousInput = currentInput;
 	currentInput.clear();
+
+
+
+	if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
+		&& m_LastKeyPress == GLFW_PRESS)
+	{
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 70;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+	}
+
+
+	m_LastKeyPress = glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT);
+
 }

@@ -41,7 +41,7 @@ bool Renderer::Initialize()
 	glGetIntegerv(GL_MINOR_VERSION, &m_glVersion[1]);
 	m_glVendor = (GLchar*)glGetString(GL_VENDOR);
 	std::stringstream ss;
-	ss << m_glVendor << " OpenGL " << m_glVersion[0] << "." << m_glVersion[1];
+	ss << "Sound Drop";
 #ifdef DEBUG
 	ss << " DEBUG";
 #endif
