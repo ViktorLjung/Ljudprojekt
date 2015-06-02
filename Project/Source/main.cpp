@@ -215,7 +215,7 @@ void Input()
 	if (currentInput[0] == GLFW_PRESS && currentInput[0] != previousInput[0])
 	{
 		//Sounds[0].PlaySound(glm::vec3(), 0.2f);
-		ss.PlaySFX("Assets/Sounds/boop.wav", 1, glm::vec3(0));
+		ss.PlaySFX("Assets/Sounds/bazinga.mp3", 1, glm::vec3(0));
 
 	}
 	if (currentInput[1] == GLFW_PRESS && currentInput[1] != previousInput[1])

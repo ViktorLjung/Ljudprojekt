@@ -1,6 +1,6 @@
 #pragma once
 #include "PrecompiledHeader.h"
-
+#include <map>
 #include "fmod.hpp"
 
 class Sound 
@@ -9,6 +9,7 @@ protected:
 	FMOD::System *m_pSystem;
 	FMOD::Sound *m_pSound;
 	FMOD::Channel *m_pChannel;
+
 
 private:
 

@@ -23,19 +23,32 @@ void SoundSystem::Update(glm::vec3 lisPos, glm::vec3 lisFor, glm::vec3 lisUp)
 	//Update listener
 	m_pSystem->set3DListenerAttributes(0, &p, NULL, &f, &u);
 
+	//update emiiters
 	for (int i = 0; i < sfxList.size(); i++)
 	{
-		sfxList[i].GetChannel()->set3DAttributes(&sfxList[i].pos, NULL);
+		sfxList[i]->GetChannel()->set3DAttributes(&sfxList[i]->pos, NULL);
 	}
-	//set3DAttributes(&p, NULL);
-
+	
+	for (auto it = sfxList.begin(); it != sfxList.end();)
+	{
+		if (!(*it)->IsPlaying())
+			it = sfxList.erase(it);
+		else
+			it++;
+	}
 
 }
 
 void SoundSystem::PlaySFX(char* _filename, float _volume, glm::vec3 pos)
 {
-	SFX sfx(m_pSystem);
-	sfx.CreateSound(_filename);
-	sfx.PlaySound(pos, _volume);
+	SFX* sfx = cachedSounds[_filename];
+	if (sfx == nullptr)
+	{
+		sfx = new SFX(m_pSystem);
+		sfx->CreateSound(_filename);
+		cachedSounds[_filename] = sfx;
+	}
+
+	sfx->PlaySound(pos, _volume);
 	sfxList.push_back(sfx);
 }

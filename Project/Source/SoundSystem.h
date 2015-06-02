@@ -14,8 +14,10 @@ protected:
 	FMOD::System *m_pSystem;
 
 private:
-	std::vector<SFX> sfxList;
+	std::vector<SFX*> sfxList;
 	void Initialize();
+	std::map<char*, SFX*> cachedSounds;
+
 	
 public:
 	SoundSystem();
