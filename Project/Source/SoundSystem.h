@@ -20,8 +20,9 @@ private:
 	std::map<char*, SFX*> cachedSFX;	
 	std::map<char*, BGM*> cachedBGM;
 
-	FMOD::Channel* m_bgmChannel;
- 	FMOD::Sound* m_bgmSound;
+// 	FMOD::Channel* m_bgmChannel;
+//  	FMOD::Sound* m_bgmSound;
+	BGM *bgm;
 
 	
 public:

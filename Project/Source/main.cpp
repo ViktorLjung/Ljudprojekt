@@ -20,7 +20,8 @@ SoundSystem ss = SoundSystem();
 
 std::vector<char*> Sounds;
 
-int once = 0;
+float bgmVolume = 0.1;
+
 std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
 void Update(double dt);
 void Input();
@@ -134,24 +135,6 @@ int main()
 			renderer.AddObjectToDraw(o, true);
 		}
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////
-		//  Adams sound tutorial :D
-		//////////////////////////////////////////////////////////////////////////////////////////////////
-		// Skapa ett sfx eller bgm, skillnaden är att sfx kan spelas i 3D och att bgm loopar per default.
-		// Först måste du skapa ett ljud. Parametrarna är filnamn och volym mellan 0-1.
-		// Sen är det fritt fram att spela det :D bgm behöver ingen pos för att spelas ut
-		//////////////////////////////////////////////////////////////////////////////////////////////////
-		//testljud.CreateSound("Assets/Sounds/test.wav");
-		//testljud.PlaySound(glm::vec3(0), 0.1f);
-		//bgmHisako.CreateSound("Assets/Sounds/hisako.wav");
-		if (once == 0)
-		{
-			//bgmHisako.PlaySound(0);
-			once++;
-		}
-
-		
-		
 		objectManager.Update(dt);
 		Input();
 		Update(dt);
@@ -290,6 +273,27 @@ void Input()
 		glm::vec3 force = renderer.GetCameraForward();
 		force *= 0;
 		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+	}
+
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F1) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat1.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F2) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat2.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F3) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat3.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F4) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat4.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F5) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat5.wav", bgmVolume);
 	}
 
 	previousInput = currentInput;
