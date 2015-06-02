@@ -18,7 +18,7 @@ ObjectManager objectManager = ObjectManager();
 static PhysicsSystem physicsSystem;
 SoundSystem ss = SoundSystem();
 
-std::vector<SFX> Sounds;
+std::vector<char*> Sounds;
 
 int once = 0;
 std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
@@ -30,13 +30,23 @@ std::vector<int> currentInput;
 
 int main()
 {
-// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/C.wav"));
-// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/D.wav"));
-// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/E.wav"));
-// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/F.wav"));
-// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/G.wav"));
-// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/ALow.wav"));
-// 	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));
+/*
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/C.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/D.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/E.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/F.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/G.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/ALow.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));*/
+
+
+	Sounds.push_back("Assets/Sounds/Wubs/WubSnare2.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/WubSnare.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/HeavySnare.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/WubKick.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/Kick2.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/Snare.wav");
+	Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");
 
 
 	renderer.LoadContent();
@@ -48,7 +58,7 @@ int main()
  	//objectManager.AddObject(new Object(shape, "Assets/Models/Cube.obj", 1, 0.1, glm::vec3(0.75, 5, 0), glm::quat()));
 	
 	btCollisionShape* groundshape = new btBoxShape(btBoxShape(btVector3(75.f, 0.5f, 75.f)));
-	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", 0, 1.f, glm::vec3(0, -5, 0), glm::quat()));
+	objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(0, -5, 0), glm::quat()));
 
 	/*{
 		glm::quat rot = glm::quat();
@@ -81,7 +91,7 @@ int main()
 
 	for (int i = 0; i < 1; i++)
 	{
-		objectManager.AddObject(new Object(sphere, model, 0, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
+		objectManager.AddObject(new Object(sphere, model, "Assets/Sounds/Wubs/Wub.wav", 0, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
 	}
 
 
@@ -108,11 +118,11 @@ int main()
 		if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
 			&& m_LastKeyPress == GLFW_PRESS)
 		{
-			Object* ob = new Object(sphere, model, 1, 0.5f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+			Object* ob = new Object(sphere, model, "Assets/Sounds/Wubs/Wub.wav", 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 			objectManager.AddObject(ob);
 			ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
 			glm::vec3 force = renderer.GetCameraForward();
-			force *= 20;
+			force *= 0;
 			ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 		}
 
@@ -135,11 +145,13 @@ int main()
 		//testljud.CreateSound("Assets/Sounds/test.wav");
 		//testljud.PlaySound(glm::vec3(0), 0.1f);
 		//bgmHisako.CreateSound("Assets/Sounds/hisako.wav");
+		if (once == 0)
+		{
+			//bgmHisako.PlaySound(0);
+			once++;
+		}
+
 		
-		
-
-
-
 		
 		objectManager.Update(dt);
 		Input();
@@ -153,6 +165,7 @@ int main()
 		physicsSystem.Update(dt);
 		collisions = physicsSystem.CheckCollisions();
 
+
 		for (auto tup : collisions)
 		{
 			btRigidBody* body1;
@@ -162,15 +175,13 @@ int main()
 			
 			for (Object* o : objectManager.GetObjects())
 			{
-				if (o->m_RigidBody == body1 && mani.getAppliedImpulse() > 0)
+				if (o->m_RigidBody->isStaticObject())
+					continue;
+
+				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2))
 				{
-					printf("body %d, impulse %f\n", o->m_RigidBody == body1, mani.getAppliedImpulse());
-					o->Boop(mani.getAppliedImpulse());
-				}
-				if(o->m_RigidBody == body2 && mani.getAppliedImpulse() > 0)
-				{
-					printf("body %d, impulse %f\n", o->m_RigidBody == body1, mani.getAppliedImpulse());
-					o->Boop(mani.getAppliedImpulse());
+					printf("body %d, impulse %f\n", mani.getAppliedImpulse());
+					ss.PlaySFX(o->m_Sound, 1.0f, glm::vec3());
 				}
 			}
 		}
@@ -213,33 +224,31 @@ void Input()
 	//Beats
 	if (currentInput[0] == GLFW_PRESS && currentInput[0] != previousInput[0])
 	{
-		//Sounds[0].PlaySound(glm::vec3(), 0.2f);
-		ss.PlaySFX("Assets/Sounds/bazinga.mp3", 1, glm::vec3(0));
-
+		ss.PlaySFX(Sounds[0], 1.0f, glm::vec3());
 	}
 	if (currentInput[1] == GLFW_PRESS && currentInput[1] != previousInput[1])
 	{
-		Sounds[1].PlaySound(glm::vec3(), 0.2f);
+		ss.PlaySFX(Sounds[1], 1.0f, glm::vec3());
 	}
 	if (currentInput[2] == GLFW_PRESS && currentInput[2] != previousInput[2])
 	{
-		Sounds[2].PlaySound(glm::vec3(), 0.2f);
+		ss.PlaySFX(Sounds[2], 1.0f, glm::vec3());
 	}
 	if (currentInput[3] == GLFW_PRESS && currentInput[3] != previousInput[3])
 	{
-		Sounds[3].PlaySound(glm::vec3(), 0.2f);
+		ss.PlaySFX(Sounds[3], 1.0f, glm::vec3());
 	}
 	if (currentInput[4] == GLFW_PRESS && currentInput[4] != previousInput[4])
 	{
-		Sounds[4].PlaySound(glm::vec3(), 0.2f);
+		ss.PlaySFX(Sounds[4], 1.0f, glm::vec3());
 	}
 	if (currentInput[5] == GLFW_PRESS && currentInput[5] != previousInput[5])
 	{
-		Sounds[5].PlaySound(glm::vec3(), 0.2f);
+		ss.PlaySFX(Sounds[5], 1.0f, glm::vec3());
 	}
 	if (currentInput[6] == GLFW_PRESS && currentInput[6] != previousInput[6])
 	{
-		Sounds[6].PlaySound(glm::vec3(), 0.2f);
+		ss.PlaySFX(Sounds[6], 1.0f, glm::vec3());
 	}
 
 	previousInput = currentInput;

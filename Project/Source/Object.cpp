@@ -11,9 +11,9 @@ Object::Object(btCollisionShape* shape, std::string modelPath) //Static
 	m_ModelMatrix = glm::mat4();
 	ModelMatrix(m_Position, m_Orientation, m_Scale);
 	m_Restitution = 0;
-
+	m_Sound = "Assets/Sounds/Wubs/WubSnare.wav";
 }
-Object::Object(btCollisionShape* shape, std::string modelPath, 
+Object::Object(btCollisionShape* shape, std::string modelPath, char* sound,
 	btScalar mass, btScalar restitution, glm::vec3 position, glm::quat orientation)
 {
 	m_Model = std::make_shared<Model>(modelPath);
@@ -25,9 +25,10 @@ Object::Object(btCollisionShape* shape, std::string modelPath,
 	m_Shape = shape;
 	m_ModelMatrix = glm::mat4();
 	ModelMatrix(m_Position, m_Orientation, m_Scale);
+	m_Sound = sound;
 }
 
-Object::Object(btCollisionShape* shape, std::shared_ptr<Model> model,
+Object::Object(btCollisionShape* shape, std::shared_ptr<Model> model, char* sound,
 	btScalar mass, btScalar restitution, glm::vec3 position, glm::quat orientation)
 {
 	m_Model = model;
@@ -39,6 +40,7 @@ Object::Object(btCollisionShape* shape, std::shared_ptr<Model> model,
 	m_Shape = shape;
 	m_ModelMatrix = glm::mat4();
 	ModelMatrix(m_Position, m_Orientation, m_Scale);
+	m_Sound = sound;
 }
 
 
