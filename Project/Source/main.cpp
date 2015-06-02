@@ -20,11 +20,13 @@ SoundSystem ss = SoundSystem();
 
 std::vector<char*> Sounds;
 
-int once = 0;
+std::vector<std::shared_ptr<Model>> models;
+
+float bgmVolume = 0.1;
+
 std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
 void Update(double dt);
 void Input();
-std::shared_ptr<Model>  model;
 std::vector<int> previousInput;
 std::vector<int> currentInput;
 int m_LastKeyPress;
@@ -69,7 +71,7 @@ int main()
 	}
 	{
 		glm::quat rot = glm::quat();
-		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(0, 0, 1));
+		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(0, 0, -1));
 		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj",  "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(75, -5, 0), rot));
 	}
 	{
@@ -79,27 +81,25 @@ int main()
 	}
 	{
 		glm::quat rot = glm::quat();
-		rot = rot * glm::angleAxis(90 * 3.14f / 180, glm::vec3(1, 0, 0));
-		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(0, -5, -75), rot));
+		objectManager.AddObject(new Object(groundshape, "Assets/Models/Plane.obj", "Assets/Sounds/Wubs/Wub.wav", 0, 1.f, glm::vec3(0, 60, 0), rot));
 	}
 
 
 	
 
-	model = std::make_shared<Model>("Assets/Models/Sphere.obj");
-
-	btCollisionShape* sphere = new btSphereShape(0.5f);
-
-	for (int i = 0; i < 1; i++)
-	{
-		objectManager.AddObject(new Object(sphere, model, "Assets/Sounds/Wubs/Wub.wav", 0, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
-	}
+	models.push_back(std::make_shared<Model>("Assets/Models/Sphere.obj"));
+	models.push_back(std::make_shared<Model>("Assets/Models/Sphere1.obj"));
+	models.push_back(std::make_shared<Model>("Assets/Models/Sphere2.obj"));
+	models.push_back(std::make_shared<Model>("Assets/Models/Sphere3.obj"));
+	models.push_back(std::make_shared<Model>("Assets/Models/Sphere4.obj"));
+	models.push_back(std::make_shared<Model>("Assets/Models/Sphere5.obj"));
+	models.push_back(std::make_shared<Model>("Assets/Models/Sphere6.obj"));
 
 
 	for (Object* o : objectManager.GetObjects())
 	{
 		o->m_RigidBody = physicsSystem.AddRigidBody(o->m_Shape, o->m_Mass, o->m_Restitution, o->ModelMatrix());
-		
+
 	}
 	
 	renderer.AddLightToDraw();
@@ -123,24 +123,6 @@ int main()
 			renderer.AddObjectToDraw(o, true);
 		}
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////
-		//  Adams sound tutorial :D
-		//////////////////////////////////////////////////////////////////////////////////////////////////
-		// Skapa ett sfx eller bgm, skillnaden är att sfx kan spelas i 3D och att bgm loopar per default.
-		// Först måste du skapa ett ljud. Parametrarna är filnamn och volym mellan 0-1.
-		// Sen är det fritt fram att spela det :D bgm behöver ingen pos för att spelas ut
-		//////////////////////////////////////////////////////////////////////////////////////////////////
-		//testljud.CreateSound("Assets/Sounds/test.wav");
-		//testljud.PlaySound(glm::vec3(0), 0.1f);
-		//bgmHisako.CreateSound("Assets/Sounds/hisako.wav");
-		if (once == 0)
-		{
-			//bgmHisako.PlaySound(0);
-			once++;
-		}
-
-		
-		
 		objectManager.Update(dt);
 		Input();
 		Update(dt);
@@ -216,36 +198,36 @@ void Input()
 
 	
 	btCollisionShape* sphere = new btSphereShape(0.5f);
-	Object* ob = new Object(sphere, model, Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+	Object* ob = new Object(sphere, models[0], Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 
 	//Beats
 	if (currentInput[0] == GLFW_PRESS )//&& currentInput[0] != previousInput[0])
 	{
-		ob = new Object(sphere, model, Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		ob = new Object(sphere, models[0], Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 	if (currentInput[1] == GLFW_PRESS )//&& currentInput[1] != previousInput[1])
 	{
-		ob = new Object(sphere, model, Sounds[1], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		ob = new Object(sphere, models[1], Sounds[1], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 	if (currentInput[2] == GLFW_PRESS)//&& currentInput[2] != previousInput[2])
 	{
-		Object* ob = new Object(sphere, model, Sounds[2], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		ob = new Object(sphere, models[2], Sounds[2], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 	if (currentInput[3] == GLFW_PRESS)//&& currentInput[3] != previousInput[3])
 	{
-		ob = new Object(sphere, model, Sounds[3], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		ob = new Object(sphere, models[3], Sounds[3], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 	if (currentInput[4] == GLFW_PRESS)//&& currentInput[4] != previousInput[4])
 	{
-		ob = new Object(sphere, model, Sounds[4], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		ob = new Object(sphere, models[4], Sounds[4], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 	if (currentInput[5] == GLFW_PRESS)// && currentInput[5] != previousInput[5])
 	{
-		ob = new Object(sphere, model, Sounds[5], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		ob = new Object(sphere, models[5], Sounds[5], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 	if (currentInput[6] == GLFW_PRESS)// && currentInput[6] != previousInput[6])
 	{
-		Object* ob = new Object(sphere, model, Sounds[6], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		ob = new Object(sphere, models[6], Sounds[6], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 
 	previousInput = currentInput;
@@ -259,8 +241,29 @@ void Input()
 		objectManager.AddObject(ob);
 		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
 		glm::vec3 force = renderer.GetCameraForward();
-		force *= 70;
+		force *= 50;
 		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
+	}
+
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F1) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat1.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F2) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat2.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F3) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat3.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F4) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat4.wav", bgmVolume);
+	}
+	if (glfwGetKey(renderer.GetWindow(), GLFW_KEY_F5) == GLFW_PRESS)
+	{
+		ss.PlayBGM("Assets/Sounds/beat5.wav", bgmVolume);
 	}
 
 

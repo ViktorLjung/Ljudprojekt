@@ -8,7 +8,7 @@ Camera::Camera(float fov, float AspectRatio, float nearClip, float farClip)
 	m_Pitch = 0;
 	m_Yaw = 0;
 	m_Roll = 0;
-	m_MoveSpeed = 100;
+	m_MoveSpeed = 10;
 	m_AspectRatio = AspectRatio;
 	m_FOV = fov;
 	m_NearClip = nearClip;

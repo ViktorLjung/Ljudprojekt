@@ -36,7 +36,6 @@ void SoundSystem::Update(glm::vec3 lisPos, glm::vec3 lisFor, glm::vec3 lisUp)
 		else
 			it++;
 	}
-
 }
 
 void SoundSystem::PlaySFX(char* _filename, float _volume, glm::vec3 pos)
@@ -55,13 +54,16 @@ void SoundSystem::PlaySFX(char* _filename, float _volume, glm::vec3 pos)
 
 void SoundSystem::PlayBGM(char* _fileName, float _volume)
 {
-	BGM* bgm = cachedBGM[_fileName];
+	if (bgm != nullptr)
+		if (bgm->IsPlaying())
+			bgm->StopSound();
+	bgm = cachedBGM[_fileName];
 	if (bgm == nullptr)
 	{
 		bgm = new BGM(m_pSystem);
 		bgm->CreateSound(_fileName);
 		cachedBGM[_fileName] = bgm;
 	}
-
+	
 	bgm->PlaySound(_volume);
 }
