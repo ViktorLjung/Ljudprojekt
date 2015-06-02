@@ -180,7 +180,7 @@ int main()
 				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2))
 				{
 					printf("body %d, impulse %f\n", mani.getAppliedImpulse());
-					ss.PlaySFX(o->m_Sound, 1.f, glm::vec3(o->m_Position));
+					ss.PlaySFX(o->m_Sound, 0.2f, glm::vec3(o->m_Position));
 					played = true;
 					break;
 				}
