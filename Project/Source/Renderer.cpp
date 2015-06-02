@@ -171,6 +171,7 @@ void Renderer::Clear()
 void Renderer::Draw(double dt)
 {
 	m_Camera->Input(m_Window, dt, WIDTH, HEIGHT);
+/*
 
 	if (glfwGetKey(m_Window, GLFW_KEY_1) == GLFW_PRESS)
 	{
@@ -263,7 +264,7 @@ void Renderer::Draw(double dt)
 		LOG_INFO("Radius: %f", m_SSAO.Radius);
 	}
 
-	
+	*/
 
 	DrawScene();
 

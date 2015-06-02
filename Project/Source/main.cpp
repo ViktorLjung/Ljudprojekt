@@ -10,7 +10,7 @@
 #include "SoundSystem.h"
 #include "SFX.h"
 #include "BGM.h"
-
+#include <vector>
 
 Renderer renderer = Renderer(); // First or break >:(
 ObjectManager objectManager = ObjectManager();
@@ -18,13 +18,27 @@ ObjectManager objectManager = ObjectManager();
 static PhysicsSystem physicsSystem;
 SoundSystem ss = SoundSystem();
 
+std::vector<SFX> Sounds;
 
 int once = 0;
 std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
 void Update(double dt);
+void Input();
+
+std::vector<int> previousInput;
+std::vector<int> currentInput;
 
 int main()
 {
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/C.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/D.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/E.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/F.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/G.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/ALow.wav"));
+	Sounds.push_back(SFX("Assets/Sounds/Guitar/BLow.wav"));
+
+
 	renderer.LoadContent();
 	physicsSystem.Initialize();
 	
@@ -89,6 +103,7 @@ int main()
 		double dt = time - lastTime;
 		lastTime = time;
 
+		
 
 		if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
 			&& m_LastKeyPress == GLFW_PRESS)
@@ -129,6 +144,7 @@ int main()
 		
 		
 		objectManager.Update(dt);
+		Input();
 		Update(dt);
 		ss.Update(
 			renderer.m_Camera->Position(),
@@ -182,3 +198,51 @@ void Update(double dt)
 	}
 }
 
+
+
+void Input()
+{
+
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_1));
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_2));
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_3));
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_4));
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_5));
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_6));
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_7));
+
+
+
+	//Beats
+	if (currentInput[0] == GLFW_PRESS && currentInput[0] != previousInput[0])
+	{
+		Sounds[0].PlaySound(glm::vec3(), 0.2f);
+	}
+	if (currentInput[1] == GLFW_PRESS && currentInput[1] != previousInput[1])
+	{
+		Sounds[1].PlaySound(glm::vec3(), 0.2f);
+	}
+	if (currentInput[2] == GLFW_PRESS && currentInput[2] != previousInput[2])
+	{
+		Sounds[2].PlaySound(glm::vec3(), 0.2f);
+	}
+	if (currentInput[3] == GLFW_PRESS && currentInput[3] != previousInput[3])
+	{
+		Sounds[3].PlaySound(glm::vec3(), 0.2f);
+	}
+	if (currentInput[4] == GLFW_PRESS && currentInput[4] != previousInput[4])
+	{
+		Sounds[4].PlaySound(glm::vec3(), 0.2f);
+	}
+	if (currentInput[5] == GLFW_PRESS && currentInput[5] != previousInput[5])
+	{
+		Sounds[5].PlaySound(glm::vec3(), 0.2f);
+	}
+	if (currentInput[6] == GLFW_PRESS && currentInput[6] != previousInput[6])
+	{
+		Sounds[6].PlaySound(glm::vec3(), 0.2f);
+	}
+
+	previousInput = currentInput;
+	currentInput.clear();
+}
