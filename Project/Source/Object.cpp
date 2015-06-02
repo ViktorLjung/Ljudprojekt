@@ -85,6 +85,6 @@ void Object::Boop(float appImpulse)
 	btVector3 velb = m_RigidBody->getLinearVelocity();
 
 	vel = glm::vec3(velb.getX(), velb.getY(), velb.getZ());
-	boop.PlaySound(m_Position, 0.3f);
+	boop.PlaySound(m_Position, appImpulse/100);
 }
 

@@ -67,10 +67,10 @@ int main()
 
 	btCollisionShape* sphere = new btSphereShape(0.5f);
 
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	objectManager.AddObject(new Object(sphere, model, 1, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
-	//}
+	for (int i = 0; i < 1; i++)
+	{
+		objectManager.AddObject(new Object(sphere, model, 0, 1.1f, glm::vec3(1.25f*i, 10, 0), glm::quat()));
+	}
 
 
 	for (Object* o : objectManager.GetObjects())
@@ -150,7 +150,12 @@ int main()
 			
 			for (Object* o : objectManager.GetObjects())
 			{
-				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2) && mani.getAppliedImpulse() > 1)
+				if (o->m_RigidBody == body1 && mani.getAppliedImpulse() > 0)
+				{
+					printf("body %d, impulse %f\n", o->m_RigidBody == body1, mani.getAppliedImpulse());
+					o->Boop(mani.getAppliedImpulse());
+				}
+				if(o->m_RigidBody == body2 && mani.getAppliedImpulse() > 0)
 				{
 					printf("body %d, impulse %f\n", o->m_RigidBody == body1, mani.getAppliedImpulse());
 					o->Boop(mani.getAppliedImpulse());
