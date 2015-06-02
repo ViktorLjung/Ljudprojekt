@@ -195,11 +195,13 @@ void Input()
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_5));
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_6));
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_7));
-
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_Q));
+	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_E));
 	
 	btCollisionShape* sphere = new btSphereShape(0.5f);
 	Object* ob = new Object(sphere, models[0], Sounds[0], 1.f, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
-
+	
+	
 	//Beats
 	if (currentInput[0] == GLFW_PRESS )//&& currentInput[0] != previousInput[0])
 	{
@@ -230,9 +232,34 @@ void Input()
 		ob = new Object(sphere, models[6], Sounds[6], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
 	}
 
+	if (currentInput[7] == GLFW_PRESS && currentInput[7] != previousInput[7])
+	{
+		Sounds.clear();
+		Sounds.push_back("Assets/Sounds/Wubs/WubSnare2.wav");
+		Sounds.push_back("Assets/Sounds/Wubs/WubSnare.wav");
+		Sounds.push_back("Assets/Sounds/Wubs/HeavySnare.wav");
+		Sounds.push_back("Assets/Sounds/Wubs/WubKick.wav");
+		Sounds.push_back("Assets/Sounds/Wubs/Kick2.wav");
+		Sounds.push_back("Assets/Sounds/Wubs/Snare.wav");
+		Sounds.push_back("Assets/Sounds/Wubs/Wub.wav");
+	}
+
+	if (currentInput[8] == GLFW_PRESS && currentInput[8] != previousInput[8])
+	{
+		Sounds.clear();
+		Sounds.push_back("Assets/Sounds/Guitar/C.wav");
+		Sounds.push_back("Assets/Sounds/Guitar/D.wav");
+		Sounds.push_back("Assets/Sounds/Guitar/E.wav");
+		Sounds.push_back("Assets/Sounds/Guitar/F.wav");
+		Sounds.push_back("Assets/Sounds/Guitar/G.wav");
+		Sounds.push_back("Assets/Sounds/Guitar/ALow.wav");
+		Sounds.push_back("Assets/Sounds/Guitar/BLow.wav");
+	}
+
+	
+
 	previousInput = currentInput;
 	currentInput.clear();
-
 
 
 	if (glfwGetMouseButton(renderer.GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE
