@@ -71,7 +71,7 @@ void Object::Update(double dt)
 
 	glm::mat4 transformGL;
 	trans.getOpenGLMatrix(glm::value_ptr(transformGL));
-	
+	m_Position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
 	
 	ModelMatrix(transformGL);
 	

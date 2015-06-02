@@ -24,7 +24,7 @@ int once = 0;
 std::list<std::tuple<btRigidBody*, btRigidBody*, btManifoldPoint>> collisions;
 void Update(double dt);
 void Input();
-
+std::shared_ptr<Model>  model;
 std::vector<int> previousInput;
 std::vector<int> currentInput;
 
@@ -84,7 +84,6 @@ int main()
 
 	
 
-	std::shared_ptr<Model>  model; 
 	model = std::make_shared<Model>("Assets/Models/Sphere.obj");
 
 	btCollisionShape* sphere = new btSphereShape(0.5f);
@@ -165,7 +164,7 @@ int main()
 		physicsSystem.Update(dt);
 		collisions = physicsSystem.CheckCollisions();
 
-
+		bool played = false;
 		for (auto tup : collisions)
 		{
 			btRigidBody* body1;
@@ -181,9 +180,14 @@ int main()
 				if ((o->m_RigidBody == body1 || o->m_RigidBody == body2))
 				{
 					printf("body %d, impulse %f\n", mani.getAppliedImpulse());
-					ss.PlaySFX(o->m_Sound, 1.0f, glm::vec3());
+					ss.PlaySFX(o->m_Sound, 1.f, glm::vec3(o->m_Position));
+					played = true;
+					break;
 				}
 			}
+
+			if (played)
+				break;
 		}
 		collisions.clear();
 
@@ -220,36 +224,73 @@ void Input()
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_6));
 	currentInput.push_back(glfwGetKey(renderer.GetWindow(), GLFW_KEY_7));
 
+	
+	btCollisionShape* sphere = new btSphereShape(0.5f);
 
 
 	//Beats
 	if (currentInput[0] == GLFW_PRESS && currentInput[0] != previousInput[0])
 	{
-		ss.PlaySFX(Sounds[0], 1.0f, glm::vec3());
+		Object* ob = new Object(sphere, model, Sounds[0], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 0;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 	if (currentInput[1] == GLFW_PRESS && currentInput[1] != previousInput[1])
 	{
-		ss.PlaySFX(Sounds[1], 1.0f, glm::vec3());
+		Object* ob = new Object(sphere, model, Sounds[1], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 0;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 	if (currentInput[2] == GLFW_PRESS && currentInput[2] != previousInput[2])
 	{
-		ss.PlaySFX(Sounds[2], 1.0f, glm::vec3());
+		Object* ob = new Object(sphere, model, Sounds[2], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 0;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 	if (currentInput[3] == GLFW_PRESS && currentInput[3] != previousInput[3])
 	{
-		ss.PlaySFX(Sounds[3], 1.0f, glm::vec3());
+		Object* ob = new Object(sphere, model, Sounds[3], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 0;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 	if (currentInput[4] == GLFW_PRESS && currentInput[4] != previousInput[4])
 	{
-		ss.PlaySFX(Sounds[4], 1.0f, glm::vec3());
+		Object* ob = new Object(sphere, model, Sounds[4], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 0;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 	if (currentInput[5] == GLFW_PRESS && currentInput[5] != previousInput[5])
 	{
-		ss.PlaySFX(Sounds[5], 1.0f, glm::vec3());
+		Object* ob = new Object(sphere, model, Sounds[5], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 0;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 	if (currentInput[6] == GLFW_PRESS && currentInput[6] != previousInput[6])
 	{
-		ss.PlaySFX(Sounds[6], 1.0f, glm::vec3());
+		Object* ob = new Object(sphere, model, Sounds[6], 1, 1.f, renderer.GetCameraPosition() + renderer.GetCameraForward(), glm::quat());
+		objectManager.AddObject(ob);
+		ob->m_RigidBody = physicsSystem.AddRigidBody(ob->m_Shape, ob->m_Mass, ob->m_Restitution, ob->ModelMatrix());
+		glm::vec3 force = renderer.GetCameraForward();
+		force *= 0;
+		ob->m_RigidBody->applyImpulse(btVector3(force.x, force.y, force.z), btVector3(0, 0, 0));
 	}
 
 	previousInput = currentInput;
