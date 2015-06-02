@@ -15,5 +15,6 @@ public:
 
 	void PlaySound(glm::vec3 _pos, float _volume) override;
 	void Update(glm::vec3 _pos);
+	bool IsPlaying();
 
 };

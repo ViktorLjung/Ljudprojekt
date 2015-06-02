@@ -22,3 +22,10 @@ void SFX::Update(glm::vec3 _pos)
 {
 
 }
+
+bool SFX::IsPlaying()
+{
+	bool b;
+	m_pChannel->isPlaying(&b);
+	return b;
+}
